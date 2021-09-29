@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">35sp</item>
+    <style name="Toolbar.TitleText.Expanded" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">30sp</item>
         <item name="android:textColor">#DFDFDF</item>
         <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Toolbar.TitleText.Collapsed" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">#DFDFDF</item>
     </style>
 </resources>
