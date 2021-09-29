@@ -15,7 +15,7 @@ class GetCountries(private val repository: CountryRepository) {
                     countries
                 }
                 is CountryFilter.LikedOnly -> {
-                    countries.filter { country -> country.isLiked }
+                    countries.filter { country -> country.isTracked }
                 }
             }
         }
