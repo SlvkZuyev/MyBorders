@@ -1,14 +1,13 @@
-package com.overtimedevs.bordersproject.data.data_source
+package com.overtimedevs.bordersproject.data.data_source.local
 
 import androidx.room.*
 
-import com.overtimedevs.bordersproject.data.country.NetworkCountryDescription
 import com.overtimedevs.bordersproject.domain.model.Country
-import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface CountryDao {
     @Query("SELECT * FROM country")
-    fun getAll(): Flow<List<Country>>
+    fun getAll(): List<Country>
 
     @Query("SELECT * FROM country WHERE countryId = :id")
     fun getById(id: Int): Country?

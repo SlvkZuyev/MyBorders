@@ -1,7 +1,8 @@
-package com.overtimedevs.bordersproject.data.data_source
+package com.overtimedevs.bordersproject.data.data_source.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.overtimedevs.bordersproject.data.data_source.local.CountryDao
 import com.overtimedevs.bordersproject.domain.model.Country
 
 @Database(

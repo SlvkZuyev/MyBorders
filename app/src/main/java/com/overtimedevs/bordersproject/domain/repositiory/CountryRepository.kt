@@ -4,7 +4,7 @@ import com.overtimedevs.bordersproject.domain.model.Country
 import kotlinx.coroutines.flow.Flow
 
 interface CountryRepository {
-    fun getCountries() : Flow<List<Country>>
+    fun getCountries() : List<Country>
 
     //TODO: Read about "suspend"
     suspend fun getCountryById(id: Int): Country?

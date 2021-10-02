@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Pet/BordersProject/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Pet/BordersProject/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Pet/BordersProject/app/src/main/res/layout/item_country_card.xml" value="0.20630372492836677" />
+        <entry key="..\:/Pet/BordersProject/app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>
     </option>
   </component>

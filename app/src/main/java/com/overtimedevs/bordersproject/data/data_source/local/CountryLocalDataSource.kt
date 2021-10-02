@@ -1,19 +1,19 @@
-package com.overtimedevs.bordersproject.data.data_source
+package com.overtimedevs.bordersproject.data.data_source.local
 
 import com.overtimedevs.bordersproject.domain.model.Country
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
-class CountryLocalDataSource {
+class CountryLocalDataSource(private val countryDao: CountryDao? = null) {
 
     fun getCountries(): Observable<List<Country>> {
-        var arrayList = listOf(
+        val arrayList = listOf(
             Country(
                 1,
                 false,
                 0,
                 "RESTRICTION",
-                "Country 1",
+                "com.overtimedevs.bordersproject.data.data_source.remote.retrofit.model.country.Country 1",
                 false,
                 false,
                 "arrival message",
@@ -29,12 +29,12 @@ class CountryLocalDataSource {
                 false,
                 true
             ),
-                Country(
+            Country(
                 2,
                 false,
                 0,
                 "OPEN",
-                "Country 2",
+                "com.overtimedevs.bordersproject.data.data_source.remote.retrofit.model.country.Country 2",
                 false,
                 false,
                 "arrival message",
@@ -50,12 +50,12 @@ class CountryLocalDataSource {
                 false,
                 true
             ),
-                Country(
+            Country(
                 3,
                 false,
                 0,
                 "CLOSED",
-                "Country 3",
+                "com.overtimedevs.bordersproject.data.data_source.remote.retrofit.model.country.Country 3",
                 false,
                 false,
                 "arrival message",
@@ -71,12 +71,12 @@ class CountryLocalDataSource {
                 false,
                 true
             ),
-                Country(
+            Country(
                 4,
                 false,
                 0,
                 "OPEN",
-                "Country 4",
+                "com.overtimedevs.bordersproject.data.data_source.remote.retrofit.model.country.Country 4",
                 false,
                 false,
                 "arrival message",
@@ -92,9 +92,13 @@ class CountryLocalDataSource {
                 false,
                 true
             ))
-
-            return Observable.just(arrayList).delay(2, TimeUnit.SECONDS)
+        return Observable.just(arrayList).delay(2, TimeUnit.SECONDS)
     }
 
+    fun saveCountries(countries: List<Country>){
+        for(country in countries){
+          //  countryDao.insert(country)
+        }
+    }
 
 }

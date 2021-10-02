@@ -1,5 +1,7 @@
-package com.overtimedevs.bordersproject.data.country
+package com.overtimedevs.bordersproject.data.data_source.remote.model
+
 import com.google.gson.annotations.SerializedName
+
 
 data class ReturnTestStatus (
 
