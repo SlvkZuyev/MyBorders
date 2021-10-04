@@ -2,11 +2,9 @@ package com.overtimedevs.bordersproject.presentation.main_activity.adapters
 
 
 import android.view.LayoutInflater
-import android.view.View
 
 import android.view.ViewGroup
 
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +13,9 @@ import com.overtimedevs.bordersproject.databinding.ItemCountryCardBinding
 import com.overtimedevs.bordersproject.domain.model.Country
 
 
-class CountriesAdapter
+class CountriesRecyclerViewAdapter
     (private val localDataSet: List<Country>) :
-    RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
+    RecyclerView.Adapter<CountriesRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(var binding: ItemCountryCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun setCountry(country: Country){

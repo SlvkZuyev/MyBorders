@@ -1,6 +1,8 @@
 package com.overtimedevs.bordersproject.domain.model
 
+import android.util.Log
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.overtimedevs.bordersproject.R
 
@@ -33,14 +35,12 @@ class Country(
     val vaccinatedReturnQuarantineRequired: Boolean,
     val valid: Boolean
 ) {
-    var statusSignId = R.drawable.country_status_restriction
-    /*
-     var statusSignId = when(borderStatus){
-        "RESTRICTION" -> R.drawable.country_status_restriction
-        "OPEN" -> R.drawable.country_status_open
-        "CLOSED" -> R.drawable.country_status_closed
-        else -> null
-    }
-     */
+        @Ignore
+        var statusSignId = when(borderStatus) {
+            "RESTRICTIONS" -> R.drawable.country_status_restriction
+            "OPEN" -> R.drawable.country_status_open
+            "CLOSED" -> R.drawable.country_status_closed
+            else -> null
+        }
 
 }

@@ -6,6 +6,9 @@
         <variable
             name="country"
             type="com.overtimedevs.bordersproject.domain.model.Country" />
+        <variable
+            name="restrictionStatusSignId"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

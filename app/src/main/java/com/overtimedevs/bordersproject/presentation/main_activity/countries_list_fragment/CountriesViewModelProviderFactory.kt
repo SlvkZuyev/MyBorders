@@ -1,13 +1,12 @@
-package com.overtimedevs.bordersproject.presentation.main_activity
+package com.overtimedevs.bordersproject.presentation.main_activity.countries_list_fragment
 
-import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.data.data_source.remote.CountryApi
 import com.overtimedevs.bordersproject.data.util.NetManager
 
-class MainViewModelProviderFactory (val app: CountryApp, val intent: Intent) :
+class CountriesViewModelProviderFactory (val app: CountryApp) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
@@ -18,7 +17,9 @@ class MainViewModelProviderFactory (val app: CountryApp, val intent: Intent) :
             countryDao = countryDao,
             netManager = NetManager(app.applicationContext)
         )
-        val viewModel = MainViewModel(countryRepository)
+
+        val viewModel = CountriesViewModel(countryRepository)
         return viewModel as T
     }
+
 }

@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayoutMediator
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.ActivityMainBinding
-import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesAdapter
+import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesViewPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,14 +25,22 @@ class MainActivity : AppCompatActivity() {
         )[MainViewModel::class.java]
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        viewModel.countries.observe(this){
-            binding.countriesRv.adapter = CountriesAdapter(it)
-            binding.countriesRv.layoutManager = LinearLayoutManager(this)
-        }
+        binding.viewPager.adapter = CountriesViewPagerAdapter(this)
+
+        TabLayoutMediator(binding.tab, binding.viewPager) { tab, position ->
+            if(position == 0){
+                tab.text = "Tracked"
+            } else {
+                tab.text = "All"
+            }
+        }.attach()
+
     }
 }

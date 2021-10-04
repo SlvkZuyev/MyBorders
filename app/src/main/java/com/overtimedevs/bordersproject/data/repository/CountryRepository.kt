@@ -19,12 +19,20 @@ class CountryRepository(
     private val remoteDataSource = CountryRemoteDataSource(countryApi)
 
     @SuppressLint("CheckResult")
-    fun getCountries(): Observable<List<Country>> {
+    fun getAllCountries(): Observable<List<Country>> {
        if(netManager.isConnected()){
            return remoteDataSource.getCountries().doOnNext {
                localDataSource.saveCountries(it)
            }
        }
-        return localDataSource.getCountries()
+        return localDataSource.getAllCountries()
+    }
+
+    fun getTrackedCountries(): Observable<List<Country>> {
+        return localDataSource.getTrackedCountries()
+    }
+
+    fun addTrackedCountryById(countryId: Int){
+        localDataSource.trackCountryById(countryId)
     }
 }

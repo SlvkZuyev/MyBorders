@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 //
-//@HiltAndroidApp
+@HiltAndroidApp
 class CountryApp : Application(){
     companion object {
         lateinit var retrofit: Retrofit
