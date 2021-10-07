@@ -1,4 +1,4 @@
-package com.overtimedevs.bordersproject.presentation.main_activity.countries_list_fragment
+package com.overtimedevs.bordersproject.presentation.main_activity.fragments.all_countries_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -6,7 +6,7 @@ import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.data.data_source.remote.CountryApi
 import com.overtimedevs.bordersproject.data.util.NetManager
 
-class CountriesViewModelProviderFactory (val app: CountryApp) :
+class AllCountriesViewModelProviderFactory (val app: CountryApp) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
@@ -18,7 +18,7 @@ class CountriesViewModelProviderFactory (val app: CountryApp) :
             netManager = NetManager(app.applicationContext)
         )
 
-        val viewModel = CountriesViewModel(countryRepository)
+        val viewModel = AllCountriesViewModel(countryRepository)
         return viewModel as T
     }
 
