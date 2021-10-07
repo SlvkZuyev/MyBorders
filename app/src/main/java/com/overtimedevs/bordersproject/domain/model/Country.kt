@@ -43,4 +43,10 @@ class Country(
             else -> null
         }
 
+    override fun equals(other: Any?): Boolean {
+
+        val otherCountry = other as Country
+        return countryId == otherCountry.countryId
+    }
+
 }

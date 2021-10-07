@@ -1,6 +1,7 @@
 package com.overtimedevs.bordersproject.data.repository
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.overtimedevs.bordersproject.data.data_source.local.CountryDao
 import com.overtimedevs.bordersproject.data.data_source.local.CountryLocalDataSource
 import com.overtimedevs.bordersproject.data.data_source.remote.CountryRemoteDataSource
@@ -28,11 +29,16 @@ class CountryRepository(
         return localDataSource.getAllCountries()
     }
 
+    //todo: Починить это ебаное говнище
     fun getTrackedCountries(): Observable<List<Country>> {
         return localDataSource.getTrackedCountries()
     }
 
     fun addTrackedCountryById(countryId: Int){
         localDataSource.trackCountryById(countryId)
+    }
+
+    fun removeTrackedCountryById(countryId: Int){
+        localDataSource.removeTrackedCountryById(countryId)
     }
 }

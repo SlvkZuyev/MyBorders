@@ -1,7 +1,9 @@
 package com.overtimedevs.bordersproject.extensions
 
+import android.util.Log
 import com.overtimedevs.bordersproject.data.data_source.remote.model.CountryDto
 import com.overtimedevs.bordersproject.domain.model.Country
+import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCard
 
 fun CountryDto.toModel() = Country(
     countryId = countryId,
@@ -24,3 +26,14 @@ fun CountryDto.toModel() = Country(
     vaccinatedReturnQuarantineRequired = vaccinatedReturnQuarantineRequired,
     valid = valid
 )
+
+fun Country.toCountryCard() : CountryCard {
+    return CountryCard(
+        countryId = countryId,
+        borderStatus = borderStatus,
+        countryName = countryName,
+        message = "Most visitors need to provide a negative COVID-19 test result to enter",
+        isTracked = isTracked
+    )
+}
+
