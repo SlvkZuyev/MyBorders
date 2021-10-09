@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.FragmentTrackedCountriesBinding
+import com.overtimedevs.bordersproject.presentation.main_activity.adapters.OnClickListener
+import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRVAdapter
+import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
 
 class TrackedCountriesFragment(): Fragment() {
 
@@ -46,6 +49,23 @@ class TrackedCountriesFragment(): Fragment() {
         binding.trackedCountriesRv.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.lifecycleOwner = this
 
+        val rvAdapter = CountriesRVAdapter(mutableListOf())
+        rvAdapter.setOnClickLister(object: OnClickListener{
+            override fun onCardClick(countryCardItemViewModel: CountryCardItemViewModel) {
+
+            }
+
+            override fun onStarClick(countryCardItemViewModel: CountryCardItemViewModel) {
+                rvAdapter.removeCountry(countryCardItemViewModel)
+            }
+        })
+
+        binding.trackedCountriesRv.adapter = rvAdapter
+
         viewModel.loadTrackedCountries()
+    }
+
+    fun isVisible(value: Boolean){
+        viewModel.canShowChanges = !value
     }
 }

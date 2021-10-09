@@ -1,10 +1,9 @@
 package com.overtimedevs.bordersproject.data.data_source.local
 
-import androidx.annotation.WorkerThread
+import com.overtimedevs.bordersproject.data.data_source.local.model.CountriesStatistic
 import com.overtimedevs.bordersproject.data.data_source.local.model.TrackedCountry
 import com.overtimedevs.bordersproject.domain.model.Country
 import io.reactivex.Observable
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -19,12 +18,12 @@ class CountryLocalDataSource(private val countryDao: CountryDao) {
         return countryDao.getTrackedCountries()
     }
 
-    fun saveCountries(countries: List<Country>){
+    fun saveCountries(countries: List<Country>) {
         countryDao.insert(countries)
     }
 
     //todo: Not to use Global scope
-    fun trackCountryById(countryId: Int){
+    fun trackCountryById(countryId: Int) {
         GlobalScope.launch {
             countryDao.addTrackedCountry(TrackedCountry(countryId))
         }
@@ -36,4 +35,37 @@ class CountryLocalDataSource(private val countryDao: CountryDao) {
         }
     }
 
+    fun getTreckedRestr(): Observable<Int> {
+        return countryDao.getTrackedCountriesRestrictionCount()
+    }
+
+    fun getAllCountriesStatistic(): Observable<CountriesStatistic> {
+        return Observable.zip(
+            countryDao.getAllCountriesRestrictionCount(),
+            countryDao.getAllCountriesOpenCount(),
+            countryDao.getAllCountriesClosedCount(),
+            { restriction, open, closed ->
+                CountriesStatistic(
+                    restrictions = restriction,
+                    open = open,
+                    closed = closed
+                )
+            }
+        )
+    }
+
+    fun getTrackedCountriesStatistic(): Observable<CountriesStatistic> {
+        return Observable.zip(
+            countryDao.getTrackedCountriesRestrictionCount(),
+            countryDao.getTrackedCountriesOpenCount(),
+            countryDao.getTrackedCountriesClosedCount(),
+            { restriction, open, closed ->
+                CountriesStatistic(
+                    restrictions = restriction,
+                    open = open,
+                    closed = closed
+                )
+            }
+        )
+    }
 }

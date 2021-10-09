@@ -1,13 +1,13 @@
 package com.overtimedevs.bordersproject.presentation.adapters
 
+import android.util.Log
 import androidx.databinding.BindingAdapter
 
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.overtimedevs.bordersproject.R
-import com.overtimedevs.bordersproject.domain.model.Country
-import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRecyclerViewAdapter
-import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCard
+import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRVAdapter
+import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
 
 
 @BindingAdapter("app:srcCompat")
@@ -18,17 +18,15 @@ fun setImageResource(imageView: ImageView, resource: Int?) {
 }
 
 @BindingAdapter("app:items")
-fun setItems(recyclerView: RecyclerView, items: List<CountryCard>){
-    if(recyclerView.adapter == null){
-        recyclerView.adapter = CountriesRecyclerViewAdapter(items)
-    } else {
-        (recyclerView.adapter as CountriesRecyclerViewAdapter).setNewList(items)
+fun setItems(recyclerView: RecyclerView, items: List<CountryCardItemViewModel>){
+ if(recyclerView.adapter is CountriesRVAdapter){
+        (recyclerView.adapter as CountriesRVAdapter).setNewList(items)
     }
-
 }
 
 @BindingAdapter("app:isTracked")
 fun setTrackStatusIcon(imageView: ImageView, isTracked: Boolean){
+    Log.d("SlvkLog:BindingAdapter", "iconChanged")
     if(isTracked){
         imageView.setImageResource(R.drawable.starr_checked)
     } else {

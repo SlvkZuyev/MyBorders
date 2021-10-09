@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+    <variable
+        name="viewModel"
+        type="com.overtimedevs.bordersproject.presentation.main_activity.MainViewModel" />
     </data>
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -48,6 +50,56 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/fake_statistic_bar" />
+
+                        <TextView
+                            android:id="@+id/open_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/helvetica_medium"
+                            android:text="@{Integer.valueOf(viewModel.showedStatistic.open).toString()}"
+                            android:textColor="#CCFFE5"
+                            android:textSize="34sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
+                            app:layout_constraintVertical_bias="0.86"
+                            tools:text="12" />
+
+                        <TextView
+                            android:id="@+id/restriction_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/helvetica_medium"
+                            android:text="@{Integer.valueOf(viewModel.showedStatistic.restrictions).toString()}"
+                            android:textColor="#FFF2E0"
+                            android:textSize="34sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
+                            app:layout_constraintEnd_toStartOf="@+id/open_tv"
+                            app:layout_constraintHorizontal_bias="0.37"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
+                            app:layout_constraintVertical_bias="0.86"
+                            tools:text="8" />
+
+                        <TextView
+                            android:id="@+id/closed_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/helvetica_medium"
+                            android:text="@{Integer.valueOf(viewModel.showedStatistic.closed).toString()}"
+                            android:textColor="#FFACAC"
+                            android:textSize="34sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.73"
+                            app:layout_constraintStart_toEndOf="@+id/open_tv"
+                            app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
+                            app:layout_constraintVertical_bias="0.86"
+                            tools:text="45" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

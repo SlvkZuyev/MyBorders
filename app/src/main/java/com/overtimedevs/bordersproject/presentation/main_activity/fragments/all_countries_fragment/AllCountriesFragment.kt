@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.FragmentAllCountriesBinding
+import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRVAdapter
 
 class AllCountriesFragment(): Fragment() {
-
     private val viewModel: AllCountriesViewModel by lazy {
         val application = activity?.application
         val app = application as CountryApp
@@ -46,6 +46,13 @@ class AllCountriesFragment(): Fragment() {
         binding.allCountriesRv.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.lifecycleOwner = this
 
+        val rvAdapter = CountriesRVAdapter(mutableListOf())
+
+        binding.allCountriesRv.adapter = rvAdapter
         viewModel.loadAllCountries()
+    }
+
+    fun isVisible(value: Boolean){
+        viewModel.canDisplayChanges = !value
     }
 }

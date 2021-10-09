@@ -1,13 +1,11 @@
 package com.overtimedevs.bordersproject.presentation.utils
 
-import android.util.Log
-import com.overtimedevs.bordersproject.domain.model.Country
-import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCard
+import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
 
 object ListsConcatenator {
-    fun withoutDuplicates(list1 : List<CountryCard>, list2: List<CountryCard>) : List<CountryCard> {
-        var mList1 : MutableList<CountryCard>
-        var mList2 : MutableList<CountryCard>
+    fun withoutDuplicates(list1 : List<CountryCardItemViewModel>, list2: List<CountryCardItemViewModel>) : List<CountryCardItemViewModel> {
+        var mList1 : MutableList<CountryCardItemViewModel>
+        var mList2 : MutableList<CountryCardItemViewModel>
         if(list1.size > list2.size){
             mList1 = MutableList(list1.size){list1[it]}
             mList2 = MutableList(list2.size){list2[it]}
@@ -17,13 +15,13 @@ object ListsConcatenator {
         }
 
         for(item in mList1){
-            item.isTracked = contains(item, mList2)
+            item.setIsTracked(contains(item, mList2))
         }
          return mList1.toList()
     }
 }
 
-fun contains(item: CountryCard, list: List<CountryCard>) : Boolean{
+fun contains(item: CountryCardItemViewModel, list: List<CountryCardItemViewModel>) : Boolean{
     for(listItem in list){
         if(listItem.countryId == item.countryId){
             return true

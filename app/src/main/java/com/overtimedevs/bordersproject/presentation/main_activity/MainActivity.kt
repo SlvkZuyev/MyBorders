@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.R
@@ -31,8 +32,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val viewPagerAdapter = CountriesViewPagerAdapter(this)
+        binding.lifecycleOwner = this
 
-        binding.viewPager.adapter = CountriesViewPagerAdapter(this)
+        binding.viewPager.adapter = viewPagerAdapter
+        binding.viewModel = viewModel
+
+
+        binding.viewPager.registerOnPageChangeCallback(
+            object :ViewPager2.OnPageChangeCallback(){
+                override fun onPageSelected(position: Int) {
+                    viewPagerAdapter.notifyPageChanged(position)
+                    viewModel.onPageChanged(position)
+                    super.onPageSelected(position)
+                }
+            })
 
         TabLayoutMediator(binding.tab, binding.viewPager) { tab, position ->
             if(position == 0){

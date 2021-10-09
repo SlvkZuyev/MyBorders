@@ -6,7 +6,7 @@
     <data>
         <variable
             name="countryCard"
-            type="com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCard" />
+            type="com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,11 +39,11 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="16dp"
                     android:adjustViewBounds="true"
+                    app:borderStatus="@{countryCard.borderStatus}"
                     app:layout_constraintBottom_toTopOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:borderStatus="@{countryCard.borderStatus}"
-                    tools:srcCompat="@drawable/country_status_restriction"/>
+                    tools:srcCompat="@drawable/country_status_restriction" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline2"
@@ -79,12 +79,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/helvetica_bold"
                     android:text="@{countryCard.countryName}"
-                    tools:text="Afghanistan"
                     android:textColor="#192024"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
-                    app:layout_constraintTop_toTopOf="@+id/guideline2" />
+                    app:layout_constraintTop_toTopOf="@+id/guideline2"
+                    tools:text="Afghanistan" />
 
                 <TextView
                     android:id="@+id/country_descriprion"
@@ -92,13 +92,13 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/helvetica_regular"
                     android:text="@{countryCard.message}"
-                    tools:text="Most visitors from Ukraine need to provide a negative COVID-19 test result to enter Afghanistan."
                     android:textColor="#192024"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
-                    app:layout_constraintTop_toTopOf="@+id/guideline4" />
+                    app:layout_constraintTop_toTopOf="@+id/guideline4"
+                    tools:text="Most visitors from Ukraine need to provide a negative COVID-19 test result to enter Afghanistan." />
 
                 <View
                     android:id="@+id/divider"
@@ -116,10 +116,10 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="16dp"
                     android:adjustViewBounds="true"
+                    app:isTracked="@{countryCard.isTracked}"
                     app:layout_constraintBottom_toTopOf="@+id/guideline2"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:isTracked="@{countryCard.tracked}"
                     tools:srcCompat="@drawable/starr_unchecked" />
 
 

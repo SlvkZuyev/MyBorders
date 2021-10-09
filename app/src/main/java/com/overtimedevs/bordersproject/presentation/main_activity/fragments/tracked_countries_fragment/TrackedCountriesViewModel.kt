@@ -9,7 +9,7 @@ import com.overtimedevs.bordersproject.data.repository.CountryRepository
 import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.extensions.plusAssign
 import com.overtimedevs.bordersproject.extensions.toCountryCard
-import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCard
+import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
@@ -19,10 +19,12 @@ class TrackedCountriesViewModel(private val countryRepository: CountryRepository
     private val compositeDisposable = CompositeDisposable()
     val isLoading = ObservableField(false)
 
-    private val _countriesCards = MutableLiveData<List<CountryCard>>(emptyList())
-    val countriesCards: LiveData<List<CountryCard>> = _countriesCards
+    private val _countriesCards = MutableLiveData<List<CountryCardItemViewModel>>(emptyList())
+    val countriesCards: LiveData<List<CountryCardItemViewModel>> = _countriesCards
 
-    var showedCountries: List<CountryCard> = emptyList()
+    var showedCountryItemViewModels: List<CountryCardItemViewModel> = emptyList()
+    var canShowChanges = false
+    var isFirstTimeDisplayed = false
 
     fun loadTrackedCountries() {
         compositeDisposable += countryRepository.getTrackedCountries()
@@ -44,18 +46,47 @@ class TrackedCountriesViewModel(private val countryRepository: CountryRepository
 
                     override fun onNext(t: List<Country>) {
                         Log.d("Tracked", "onNext: ")
-                        showedCountries = t.map { it.toCountryCard() }
-                        showedCountries.forEach {
+                        showedCountryItemViewModels = t.map { it.toCountryCard() }
+                        showedCountryItemViewModels.forEach {
                             it.apply {
-                                isTracked = true
                                 onCountryClicked = { country -> onCountryClicked(country) }
                                 onTrackStatusChanged =
                                     { country -> onCountryTrackStatusChange(country) }
+                                setIsTracked(true)
                             }
                         }
-                        _countriesCards.value = showedCountries
-                        //_countriesCards.value = trackedCountries
+                        if(canShowChanges){
+                            _countriesCards.value = showedCountryItemViewModels
+                        }
+
+                        if(!isFirstTimeDisplayed){
+                            _countriesCards.value = showedCountryItemViewModels
+                            isFirstTimeDisplayed = true
+                        }
+
+                            //_countriesCards.value = trackedCountries
                     }
+                })
+
+
+        compositeDisposable += countryRepository.getTreckedRestr()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(
+                object : DisposableObserver<Int>() {
+                    override fun onNext(t: Int) {
+                        Log.d("SlvkLog", "$t")
+                    }
+
+                    override fun onError(e: Throwable) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onComplete() {
+                        TODO("Not yet implemented")
+                    }
+
+
                 })
     }
 
@@ -66,17 +97,17 @@ class TrackedCountriesViewModel(private val countryRepository: CountryRepository
         }
     }
 
-    fun onCountryTrackStatusChange(countryCard: CountryCard) {
+    fun onCountryTrackStatusChange(countryCardItemViewModel: CountryCardItemViewModel) {
         Log.d("SlvkLog", "State Changed")
-        if (countryCard.isTracked) {
-            countryRepository.addTrackedCountryById(countryCard.countryId)
+        if (countryCardItemViewModel.isTracked.get()) {
+            countryRepository.addTrackedCountryById(countryCardItemViewModel.countryId)
         } else {
             Log.d("SlvkLog", "Removed")
-            countryRepository.removeTrackedCountryById(countryCard.countryId)
+            countryRepository.removeTrackedCountryById(countryCardItemViewModel.countryId)
         }
     }
 
-    fun onCountryClicked(countryCard: CountryCard) {
+    fun onCountryClicked(countryCardItemViewModel: CountryCardItemViewModel) {
         Log.d("SlvkLog", "CountryClicked")
     }
 }
