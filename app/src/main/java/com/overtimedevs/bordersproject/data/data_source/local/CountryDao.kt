@@ -14,7 +14,7 @@ interface CountryDao {
     fun getAllCountries(): Observable<List<Country>>
 
     @Query("SELECT * FROM country WHERE countryId = :id")
-    fun getById(id: Int): Observable<Country?>
+    fun getCountryById(id: Int): Observable<Country?>
 
     @Query("SELECT * FROM country INNER JOIN trackedcountry ON country.countryId = trackedcountry.countryId")
     fun getTrackedCountries(): Observable<List<Country>>

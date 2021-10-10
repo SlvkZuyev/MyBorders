@@ -67,27 +67,6 @@ class TrackedCountriesViewModel(private val countryRepository: CountryRepository
                             //_countriesCards.value = trackedCountries
                     }
                 })
-
-
-        compositeDisposable += countryRepository.getTreckedRestr()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(
-                object : DisposableObserver<Int>() {
-                    override fun onNext(t: Int) {
-                        Log.d("SlvkLog", "$t")
-                    }
-
-                    override fun onError(e: Throwable) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onComplete() {
-                        TODO("Not yet implemented")
-                    }
-
-
-                })
     }
 
     override fun onCleared() {

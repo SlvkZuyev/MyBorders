@@ -10,4 +10,11 @@
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">#DFDFDF</item>
     </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">#DFDFDF</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

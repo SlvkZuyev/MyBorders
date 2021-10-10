@@ -55,4 +55,8 @@ class CountryRepository(
     fun getAllCountriesStatistic() : Observable<CountriesStatistic>{
         return localDataSource.getAllCountriesStatistic()
     }
+
+    fun getCountryById(countryId: Int): Observable<Country?>{
+        return localDataSource.getCountryById(countryId)
+    }
 }

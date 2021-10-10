@@ -14,6 +14,10 @@ class CountryLocalDataSource(private val countryDao: CountryDao) {
         return countryDao.getAllCountries()
     }
 
+    fun getCountryById(countryId: Int) : Observable<Country?> {
+        return countryDao.getCountryById(countryId)
+    }
+
     fun getTrackedCountries(): Observable<List<Country>> {
         return countryDao.getTrackedCountries()
     }

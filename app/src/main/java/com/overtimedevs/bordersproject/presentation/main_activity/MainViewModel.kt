@@ -22,6 +22,7 @@ class MainViewModel(private val countryRepository: CountryRepository) : ViewMode
     var allCountriesStatistic : CountriesStatistic? = null
     var trackedCountriesStatistic : CountriesStatistic? = null
     private val compositeDisposable = CompositeDisposable()
+    var onCountryClick : ((Int) ->Unit)? = null
 
     private var currentPageNum = 0
     init {

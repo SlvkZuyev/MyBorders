@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.FragmentAllCountriesBinding
+import com.overtimedevs.bordersproject.presentation.main_activity.MainActivity
 import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRVAdapter
+import com.overtimedevs.bordersproject.presentation.main_activity.adapters.OnClickListener
+import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
 
 class AllCountriesFragment(): Fragment() {
     private val viewModel: AllCountriesViewModel by lazy {
@@ -47,7 +50,16 @@ class AllCountriesFragment(): Fragment() {
         binding.lifecycleOwner = this
 
         val rvAdapter = CountriesRVAdapter(mutableListOf())
+        rvAdapter.setOnClickLister(object: OnClickListener{
 
+            override fun onCardClick(countryCardItemViewModel: CountryCardItemViewModel) {
+                (activity as MainActivity).showCountryInfo(countryCardItemViewModel.countryId)
+            }
+
+            override fun onStarClick(countryCardItemViewModel: CountryCardItemViewModel) {
+            }
+
+        })
         binding.allCountriesRv.adapter = rvAdapter
         viewModel.loadAllCountries()
     }

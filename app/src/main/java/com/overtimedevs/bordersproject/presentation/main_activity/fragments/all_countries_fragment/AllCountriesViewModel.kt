@@ -27,6 +27,7 @@ class AllCountriesViewModel(private val countryRepository: CountryRepository) : 
 
     var newDataCounter = 0
 
+    //Todo: Probably here we should use Observable.zip method
     fun loadAllCountries() {
         compositeDisposable += Observable
             .concat(countryRepository.getAllCountries(), countryRepository.getTrackedCountries())
