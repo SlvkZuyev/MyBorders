@@ -1,5 +1,6 @@
 package com.overtimedevs.bordersproject.domain.model
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -15,16 +16,23 @@ class Country(
     val lastModified: Long,
     val borderStatus: String = "No data",
     val countryName: String = "No data",
+    val summary: String = "No data",
 
     //Arrival
     val arrivalTestRequired: Boolean,
+    val arrivalTestMessage: String? = "No data",
+    val arrivalTestExceptions: String? = "No data",
     val arrivalQuarantineRequired: Boolean,
     val arrivalQuarantineMessage: String? = "No data",
+    val arrivalQuarantineExceptions: String? = "No data",
 
     //Return
     val returnTestRequired: Boolean,
+    val returnTestMessage: String? = "No data",
+    val returnTestExceptions: String? = "No data",
     val returnQuarantineRequired: Boolean,
-    val returnQuarantineMessage: String = "No data",
+    var returnQuarantineMessage: String? = "No data",
+    var returnQuarantineExceptions: String? = "No data",
 
     val borderStatusException: String? = "No data",
     val openForVaccinated: Boolean,
@@ -44,9 +52,10 @@ class Country(
         }
 
     override fun equals(other: Any?): Boolean {
-
         val otherCountry = other as Country
         return countryId == otherCountry.countryId
     }
+
+
 
 }

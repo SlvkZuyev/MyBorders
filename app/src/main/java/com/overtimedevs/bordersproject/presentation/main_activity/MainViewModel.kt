@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.overtimedevs.bordersproject.data.data_source.local.model.CountriesStatistic
 import com.overtimedevs.bordersproject.data.repository.CountryRepository
-import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.extensions.plusAssign
-import com.overtimedevs.bordersproject.extensions.toCountryCard
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
@@ -22,7 +19,6 @@ class MainViewModel(private val countryRepository: CountryRepository) : ViewMode
     var allCountriesStatistic : CountriesStatistic? = null
     var trackedCountriesStatistic : CountriesStatistic? = null
     private val compositeDisposable = CompositeDisposable()
-    var onCountryClick : ((Int) ->Unit)? = null
 
     private var currentPageNum = 0
     init {
@@ -54,7 +50,7 @@ class MainViewModel(private val countryRepository: CountryRepository) : ViewMode
                 })
     }
 
-    fun loadAllCountriesStatistic() {
+    private fun loadAllCountriesStatistic() {
         compositeDisposable += countryRepository.getAllCountriesStatistic()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())

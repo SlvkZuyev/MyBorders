@@ -16,14 +16,16 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_container"
             android:layout_width="0dp"
-            android:layout_height="160dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="3dp"
+            android:paddingBottom="8dp"
             app:cardElevation="2dp"
             android:shadowRadius="20"
             android:shadowColor="@color/black"
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="10dp"
+            app:layout_constraintHeight_min="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +33,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="149dp">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/status"
@@ -50,14 +52,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.3" />
+                    app:layout_constraintGuide_begin="46dp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.65" />
+                    app:layout_constraintGuide_begin="99dp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline3"
@@ -90,6 +92,7 @@
                     android:id="@+id/country_descriprion"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:fontFamily="@font/helvetica_regular"
                     android:text="@{countryCard.message}"
                     android:textColor="#192024"

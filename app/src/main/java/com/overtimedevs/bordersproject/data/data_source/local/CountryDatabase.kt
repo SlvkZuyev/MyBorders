@@ -1,14 +1,20 @@
 package com.overtimedevs.bordersproject.data.data_source.local
 
+import android.annotation.SuppressLint
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.overtimedevs.bordersproject.data.data_source.local.CountryDao
 import com.overtimedevs.bordersproject.data.data_source.local.model.TrackedCountry
 import com.overtimedevs.bordersproject.domain.model.Country
 
+
+@SuppressLint("RestrictedApi")
 @Database(
     entities = [(Country::class), (TrackedCountry::class)],
-    version = 3
+    version = 4,
+    exportSchema = true,
+
 )
 
 abstract class CountryDatabase: RoomDatabase() {

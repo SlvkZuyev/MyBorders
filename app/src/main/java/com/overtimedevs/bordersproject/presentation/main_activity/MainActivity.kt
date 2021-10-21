@@ -3,6 +3,7 @@ package com.overtimedevs.bordersproject.presentation.main_activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextSwitcher
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         val viewPagerAdapter = CountriesViewPagerAdapter(this)
+        initTextSwitchers(binding)
         binding.lifecycleOwner = this
 
         binding.viewPager.adapter = viewPagerAdapter
@@ -59,6 +61,17 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
 
+    }
+
+    fun initTextSwitchers(binding: ActivityMainBinding){
+        val textSwitchers = listOf(binding.openTv, binding.closedTv, binding.restrictionTv)
+
+        for(switcher in textSwitchers){
+            switcher.setInAnimation(this, android.R.anim.fade_in)
+            switcher.setOutAnimation(this, android.R.anim.fade_out)
+            switcher.inAnimation.duration = 200
+            switcher.outAnimation.duration = 200
+        }
     }
 
     fun showCountryInfo(countryId: Int){

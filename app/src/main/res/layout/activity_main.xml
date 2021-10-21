@@ -51,55 +51,108 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/fake_statistic_bar" />
 
-                        <TextView
-                            android:id="@+id/open_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/helvetica_medium"
-                            android:text="@{Integer.valueOf(viewModel.showedStatistic.open).toString()}"
-                            android:textColor="#CCFFE5"
-                            android:textSize="34sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
-                            app:layout_constraintVertical_bias="0.86"
-                            tools:text="12" />
-
-                        <TextView
+                        <TextSwitcher
                             android:id="@+id/restriction_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/helvetica_medium"
                             android:text="@{Integer.valueOf(viewModel.showedStatistic.restrictions).toString()}"
-                            android:textColor="#FFF2E0"
-                            android:textSize="34sp"
-                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
                             app:layout_constraintEnd_toStartOf="@+id/open_tv"
                             app:layout_constraintHorizontal_bias="0.37"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
-                            app:layout_constraintVertical_bias="0.86"
-                            tools:text="8" />
+                            app:layout_constraintVertical_bias="0.86">
 
-                        <TextView
+
+                            <TextView
+                                android:id="@+id/restriction_tv1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/helvetica_medium"
+                                android:textColor="#FFF2E0"
+                                android:textSize="34sp"
+                                android:textStyle="bold"
+                                tools:text="8" />
+
+                            <TextView
+                                android:id="@+id/restriction_tv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/helvetica_medium"
+                                android:textColor="#FFF2E0"
+                                android:textSize="34sp"
+                                android:textStyle="bold"
+                                tools:text="8" />
+
+                        </TextSwitcher>
+
+                        <TextSwitcher
+                            android:id="@+id/open_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{Integer.valueOf(viewModel.showedStatistic.open).toString()}"
+                            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
+                            app:layout_constraintVertical_bias="0.86">
+
+
+                            <TextView
+                                android:id="@+id/open_tv1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/helvetica_medium"
+                                android:textColor="#CCFFE5"
+                                android:textSize="34sp"
+                                android:textStyle="bold"
+                                tools:text="12" />
+
+                            <TextView
+                                android:id="@+id/open_tv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/helvetica_medium"
+                                android:textColor="#CCFFE5"
+                                android:textSize="34sp"
+                                android:textStyle="bold"
+                                tools:text="12" />
+
+                        </TextSwitcher>
+
+
+                        <TextSwitcher
                             android:id="@+id/closed_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/helvetica_medium"
                             android:text="@{Integer.valueOf(viewModel.showedStatistic.closed).toString()}"
-                            android:textColor="#FFACAC"
-                            android:textSize="34sp"
-                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.73"
                             app:layout_constraintStart_toEndOf="@+id/open_tv"
                             app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
                             app:layout_constraintVertical_bias="0.86"
-                            tools:text="45" />
+                            >
+
+                            <TextView
+                                android:id="@+id/closed_tv1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/helvetica_medium"
+                                android:textColor="#FFACAC"
+                                android:textSize="34sp"
+                                android:textStyle="bold"
+                                tools:text="44"/>
+
+                            <TextView
+                                android:id="@+id/closed_tv2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/helvetica_medium"
+                                android:textColor="#FFACAC"
+                                android:textSize="34sp"
+                                android:textStyle="bold"/>
+                        </TextSwitcher>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

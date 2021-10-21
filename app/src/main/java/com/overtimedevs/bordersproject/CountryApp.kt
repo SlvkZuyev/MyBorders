@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 //
 @HiltAndroidApp
-class CountryApp : Application(){
+class CountryApp : Application() {
     companion object {
         lateinit var retrofit: Retrofit
         lateinit var countryDatabase: CountryDatabase
@@ -22,7 +22,9 @@ class CountryApp : Application(){
             applicationContext,
             CountryDatabase::class.java,
             CountryDatabase.DATABASE_NAME
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
 
         retrofit = Retrofit.Builder()
             .baseUrl("https://www.kayak.com/")
