@@ -18,13 +18,14 @@ import com.overtimedevs.bordersproject.presentation.main_activity.adapters.Count
 import com.overtimedevs.bordersproject.presentation.main_activity.fragments.settings_fragment.SettingsDialogue
 import com.overtimedevs.bordersproject.presentation.test_settings_activity.TestSettingsActivity
 import android.app.SearchManager
+import android.content.Context
 import android.view.Menu
+import android.view.MenuItem
 
 import androidx.appcompat.widget.SearchView
 
 import androidx.core.view.MenuItemCompat
-
-
+import androidx.core.view.MenuItemCompat.getActionView
 
 
 class MainActivity : AppCompatActivity() {
@@ -50,6 +51,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        setSupportActionBar(binding.toolbar)
         val viewPagerAdapter = CountriesViewPagerAdapter(this)
         initTextSwitchers(binding)
         binding.lifecycleOwner = this
@@ -110,12 +113,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_toolbar_menu, menu)
-        // Retrieve the SearchView and plug it into SearchManager
-        val searchView: SearchView =
-            MenuItemCompat.getActionView(menu.findItem(R.id.app_bar_search)) as SearchView
-        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+        Log.d("SlvkLog", "Menu created ")
+        val searchItem: MenuItem? = menu.findItem(R.id.app_bar_search)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView: SearchView = searchItem?.actionView as SearchView
+
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        return true
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("SlvkLog", "New text $newText")
+                (viewPager?.adapter as CountriesViewPagerAdapter).notifyFilterChanged(newText!!)
+                return true
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
     }
 
 }

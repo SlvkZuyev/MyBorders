@@ -4,13 +4,18 @@ package com.overtimedevs.bordersproject.presentation.main_activity.adapters
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
+import android.widget.Filter
 
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 
 import androidx.recyclerview.widget.RecyclerView
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.ItemCountryCardBinding
 import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
+import java.util.*
+import java.util.Collections.addAll
+import kotlin.collections.ArrayList
 
 interface OnClickListener{
     fun onCardClick(countryCardItemViewModel: CountryCardItemViewModel)
@@ -24,6 +29,9 @@ class CountriesRVAdapter
     RecyclerView.Adapter<CountriesRVAdapter.ViewHolder>() {
 
     private var onClickListener : OnClickListener? = null
+    var initialDataSet = ArrayList<CountryCardItemViewModel>().apply {
+        addAll(localDataSet)
+    }
 
     fun setOnClickLister(onClickListener: OnClickListener){
         this.onClickListener = onClickListener
@@ -31,6 +39,9 @@ class CountriesRVAdapter
 
     fun setNewList(newData: List<CountryCardItemViewModel>) {
         localDataSet = newData.toMutableList()
+        initialDataSet = ArrayList<CountryCardItemViewModel>().apply {
+            addAll(localDataSet)
+        }
         notifyDataSetChanged()
     }
 
@@ -90,4 +101,55 @@ class CountriesRVAdapter
     override fun getItemCount(): Int {
         return localDataSet.size
     }
+
+    fun getFilter(): Filter {
+        return cityFilter
+    }
+
+    private val cityFilter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList: ArrayList<CountryCardItemViewModel> = ArrayList()
+            if (constraint == null || constraint.isEmpty()) {
+                initialDataSet.let { filteredList.addAll(it) }
+            } else {
+                val query = constraint.toString().trim().lowercase()
+                initialDataSet.forEach {
+                    if (it.countryName.lowercase().contains(query)) {
+                        filteredList.add(it)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            if (results?.values is ArrayList<*>) {
+                val filteredDataset = results.values as ArrayList<CountryCardItemViewModel>
+                //notifyChanges(localDataSet, filteredDataset)
+                localDataSet.clear()
+                localDataSet.addAll(filteredDataset)
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+
+
+
+    fun notifyChanges(oldList: List<CountryCardItemViewModel>, newList: List<CountryCardItemViewModel>) {
+        val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return oldList[oldItemPosition].countryId == newList[newItemPosition].countryId
+            }
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return oldList[oldItemPosition].countryId == newList[newItemPosition].countryId
+            }
+            override fun getOldListSize() = oldList.size
+            override fun getNewListSize() = newList.size
+        })
+        diff.dispatchUpdatesTo(this)
+    }
+
 }

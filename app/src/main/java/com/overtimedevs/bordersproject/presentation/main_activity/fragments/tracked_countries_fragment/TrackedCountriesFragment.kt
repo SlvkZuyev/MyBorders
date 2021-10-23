@@ -73,4 +73,9 @@ class TrackedCountriesFragment(): Fragment() {
     fun notifySettingsChanged() {
         viewModel.loadTrackedCountries()
     }
+
+    fun applyFilter(filter: String){
+        val rvFilter = (binding.trackedCountriesRv.adapter as CountriesRVAdapter).getFilter()
+        rvFilter.filter(filter)
+    }
 }

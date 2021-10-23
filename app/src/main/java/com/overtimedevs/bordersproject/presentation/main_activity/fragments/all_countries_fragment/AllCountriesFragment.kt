@@ -72,5 +72,9 @@ class AllCountriesFragment(): Fragment() {
         viewModel.notifySettingsChanged()
     }
 
+    fun applyFilter(filter: String){
+        val rvFilter = (binding.allCountriesRv.adapter as CountriesRVAdapter).getFilter()
+        rvFilter.filter(filter)
+    }
 
 }
