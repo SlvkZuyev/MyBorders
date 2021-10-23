@@ -88,4 +88,12 @@ class MainViewModel(private val countryRepository: CountryRepository) : ViewMode
     private fun showTrackedCountriesStatistic(){
         _showedStatistic.value = trackedCountriesStatistic
     }
+
+    fun notifySettingsChanged() {
+        refreshStatistic()
+    }
+
+    private fun refreshStatistic(){
+        onPageChanged(currentPageNum)
+    }
 }

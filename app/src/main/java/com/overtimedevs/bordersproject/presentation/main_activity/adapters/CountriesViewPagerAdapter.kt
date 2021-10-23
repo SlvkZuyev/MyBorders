@@ -29,13 +29,16 @@ class CountriesViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapt
 
     fun notifyPageChanged(position: Int){
         if(position == 0){
-            Log.d("SlvkLog:ViewPagerAdapter", "current page 0")
             allCountriesFragment?.isVisible(false)
             trackedCountriesFragment?.isVisible(true)
         } else if(position == 1){
             allCountriesFragment?.isVisible(true)
             trackedCountriesFragment?.isVisible(false)
-            Log.d("SlvkLog:ViewPagerAdapter", "current page 1")
         }
+    }
+
+    fun notifySettingsChanged(){
+        trackedCountriesFragment?.notifySettingsChanged()
+        allCountriesFragment?.notifySettingsChanged()
     }
 }

@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BordersProject">
         <activity
+            android:name=".presentation.test_settings_activity.TestSettingsActivity"
+            android:exported="true" />
+        <activity
             android:name=".presentation.country_info_activity.CountryInfoActivity"
             android:exported="true" />
         <activity

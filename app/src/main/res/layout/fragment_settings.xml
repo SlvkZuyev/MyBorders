@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:orientation="vertical"
+                android:background="#F9FAFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:context=".presentation.main_activity.fragments.settings_fragment.SettingsDialogue">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Settings"
+                    android:textSize="24dp"
+                    android:textColor="#777"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:textStyle="bold"
+                    android:layout_marginHorizontal="16dp">
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose your origin country"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:textStyle="bold"
+                    android:layout_marginHorizontal="16dp">
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/menu"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="Origin country"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.19">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/textField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose your vaccination status"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:textStyle="bold"
+                    android:layout_marginHorizontal="16dp">
+                </androidx.appcompat.widget.AppCompatTextView>
+
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/vaccinationStatusButtons"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    app:singleSelection="true"
+                    android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/vaccinated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I am vaccinated"
+                    style="?attr/materialButtonOutlinedStyle"
+                    />
+                <Button
+                    android:id="@+id/not_vaccinated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I am not vaccinated"
+                    style="?attr/materialButtonOutlinedStyle"
+                    />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_submit"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:backgroundTint="@color/white"
+                    android:layout_marginTop="32dp"
+                    android:layout_width="240dp"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/black"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:layout_gravity="center_horizontal"
+                    app:cornerRadius="30dp"
+                    android:layout_height="58dp"
+                    android:text="Submit" />
+
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

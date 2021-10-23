@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.overtimedevs.bordersproject.data.repository.CountryRepository
+import com.overtimedevs.bordersproject.data.repository.UserRepository
 import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.extensions.plusAssign
 import com.overtimedevs.bordersproject.extensions.toCountryCard
@@ -15,9 +16,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
-class AllCountriesViewModel(private val countryRepository: CountryRepository) : ViewModel() {
+class AllCountriesViewModel(private val countryRepository: CountryRepository, private val userRepository: UserRepository) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
+    var userSettings = userRepository.getUserSettings()
 
     private val _countriesCards = MutableLiveData<List<CountryCardItemViewModel>>(emptyList())
     val countriesCards: LiveData<List<CountryCardItemViewModel>> = _countriesCards
@@ -28,9 +31,9 @@ class AllCountriesViewModel(private val countryRepository: CountryRepository) : 
     var newDataCounter = 0
 
     //Todo: Probably here we should use Observable.zip method
-    fun loadAllCountries() {
+    fun loadAllCountries(fromRemote: Boolean = true) {
         compositeDisposable += Observable
-            .concat(countryRepository.getAllCountries(), countryRepository.getTrackedCountries())
+            .concat(countryRepository.getAllCountries(getCountryCode(userSettings.originCountry)!!, fromRemote), countryRepository.getTrackedCountries())
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(
@@ -45,6 +48,7 @@ class AllCountriesViewModel(private val countryRepository: CountryRepository) : 
                     }
 
                     override fun onNext(t: List<Country>) {
+                        Log.d("SlvkLog", "got new To ${userSettings.originCountry}")
                         val newData = t.map { it.toCountryCard() }
                         newDataCounter++
                         onNewDataReceived(newData)
@@ -100,4 +104,13 @@ class AllCountriesViewModel(private val countryRepository: CountryRepository) : 
     private fun onCountryClicked(countryCardItemViewModel: CountryCardItemViewModel) {
         Log.d("SlvkLog", "CountryClicked")
     }
+
+    fun notifySettingsChanged(){
+        newDataCounter = 0
+        userSettings = userRepository.getUserSettings()
+        loadAllCountries()
+    }
+
+    fun getCountryCode(countryName: String) =
+        Locale.getISOCountries().find { Locale("", it).displayCountry == countryName }
 }

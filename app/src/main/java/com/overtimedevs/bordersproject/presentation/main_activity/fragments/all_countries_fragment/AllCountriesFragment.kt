@@ -67,4 +67,10 @@ class AllCountriesFragment(): Fragment() {
     fun isVisible(value: Boolean){
         viewModel.canDisplayChanges = !value
     }
+
+    fun notifySettingsChanged() {
+        viewModel.notifySettingsChanged()
+    }
+
+
 }

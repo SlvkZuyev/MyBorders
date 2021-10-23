@@ -22,9 +22,9 @@ class CountryRepository(
     private val remoteDataSource = CountryRemoteDataSource(countryApi)
 
     @SuppressLint("CheckResult")
-    fun getAllCountries(): Observable<List<Country>> {
-       if(netManager.isConnected()){
-           return remoteDataSource.getCountries().doOnNext {
+    fun getAllCountries(originCountryCode: String = "ua", loadFromRemote: Boolean = false): Observable<List<Country>> {
+       if(netManager.isConnected() && loadFromRemote){
+           return remoteDataSource.getCountries(originCountryCode).doOnNext {
                localDataSource.saveCountries(it)
            }
        }
@@ -42,10 +42,6 @@ class CountryRepository(
 
     fun removeTrackedCountryById(countryId: Int){
         localDataSource.removeTrackedCountryById(countryId)
-    }
-
-    fun getTreckedRestr(): Observable<Int>{
-        return localDataSource.getTreckedRestr()
     }
 
     fun getTrackedCountriesStatistic() : Observable<CountriesStatistic>{

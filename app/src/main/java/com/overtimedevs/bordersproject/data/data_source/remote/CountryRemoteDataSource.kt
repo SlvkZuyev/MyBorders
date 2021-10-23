@@ -6,8 +6,8 @@ import io.reactivex.Observable
 
 class CountryRemoteDataSource(private val countryApi: CountryApi? = null) {
 
-    fun getCountries(): Observable<List<Country>> {
-        return countryApi?.getCountries()
+    fun getCountries(originCountryCode: String = "ua"): Observable<List<Country>> {
+        return countryApi?.getCountries(originCountryCode)
             ?.map { countryDto ->
                 List(countryDto.size)
                 { index ->

@@ -163,6 +163,7 @@
                         android:layout_height="?attr/actionBarSize"
                         android:fitsSystemWindows="true"
                         app:layout_collapseMode="pin"
+                        app:menu="@menu/main_toolbar_menu"
                         app:titleTextColor="@color/white" />
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -189,7 +190,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:background="@color/white"></LinearLayout>
+                    android:background="@color/white">
+
+                </LinearLayout>
 
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -211,7 +214,20 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:clickable="true"
+                app:tint="#DFDFDF"
+                android:backgroundTint="#663C65"
+                app:srcCompat="@drawable/icon_settings" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

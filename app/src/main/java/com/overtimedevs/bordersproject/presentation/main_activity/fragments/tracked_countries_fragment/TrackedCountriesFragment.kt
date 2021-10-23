@@ -69,4 +69,8 @@ class TrackedCountriesFragment(): Fragment() {
     fun isVisible(value: Boolean){
         viewModel.canShowChanges = !value
     }
+
+    fun notifySettingsChanged() {
+        viewModel.loadTrackedCountries()
+    }
 }

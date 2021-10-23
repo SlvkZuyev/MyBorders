@@ -1,0 +1,204 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "227bebb8144ea56226fab6dacbe2a0c5",
+    "entities": [
+      {
+        "tableName": "Country",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`countryId` INTEGER NOT NULL, `isTracked` INTEGER NOT NULL, `lastModified` INTEGER NOT NULL, `borderStatus` TEXT NOT NULL, `countryName` TEXT NOT NULL, `summary` TEXT NOT NULL, `arrivalTestRequired` INTEGER NOT NULL, `arrivalTestMessage` TEXT, `arrivalTestExceptions` TEXT, `arrivalQuarantineRequired` INTEGER NOT NULL, `arrivalQuarantineMessage` TEXT, `arrivalQuarantineExceptions` TEXT, `returnTestRequired` INTEGER NOT NULL, `returnTestMessage` TEXT, `returnTestExceptions` TEXT, `returnQuarantineRequired` INTEGER NOT NULL, `returnQuarantineMessage` TEXT, `returnQuarantineExceptions` TEXT, `borderStatusException` TEXT, `openForVaccinated` INTEGER NOT NULL, `unvaccinatedBorderStatus` TEXT, `vaccinatedArrivalTestRequired` INTEGER NOT NULL, `vaccinatedArrivalQuarantineRequired` INTEGER NOT NULL, `vaccinatedReturnTestRequired` INTEGER NOT NULL, `vaccinatedReturnQuarantineRequired` INTEGER NOT NULL, `valid` INTEGER NOT NULL, PRIMARY KEY(`countryId`))",
+        "fields": [
+          {
+            "fieldPath": "countryId",
+            "columnName": "countryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isTracked",
+            "columnName": "isTracked",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastModified",
+            "columnName": "lastModified",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "borderStatus",
+            "columnName": "borderStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countryName",
+            "columnName": "countryName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary",
+            "columnName": "summary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "arrivalTestRequired",
+            "columnName": "arrivalTestRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "arrivalTestMessage",
+            "columnName": "arrivalTestMessage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "arrivalTestExceptions",
+            "columnName": "arrivalTestExceptions",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "arrivalQuarantineRequired",
+            "columnName": "arrivalQuarantineRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "arrivalQuarantineMessage",
+            "columnName": "arrivalQuarantineMessage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "arrivalQuarantineExceptions",
+            "columnName": "arrivalQuarantineExceptions",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "returnTestRequired",
+            "columnName": "returnTestRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "returnTestMessage",
+            "columnName": "returnTestMessage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "returnTestExceptions",
+            "columnName": "returnTestExceptions",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "returnQuarantineRequired",
+            "columnName": "returnQuarantineRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "returnQuarantineMessage",
+            "columnName": "returnQuarantineMessage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "returnQuarantineExceptions",
+            "columnName": "returnQuarantineExceptions",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "borderStatusException",
+            "columnName": "borderStatusException",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "openForVaccinated",
+            "columnName": "openForVaccinated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unvaccinatedBorderStatus",
+            "columnName": "unvaccinatedBorderStatus",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vaccinatedArrivalTestRequired",
+            "columnName": "vaccinatedArrivalTestRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vaccinatedArrivalQuarantineRequired",
+            "columnName": "vaccinatedArrivalQuarantineRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vaccinatedReturnTestRequired",
+            "columnName": "vaccinatedReturnTestRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vaccinatedReturnQuarantineRequired",
+            "columnName": "vaccinatedReturnQuarantineRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valid",
+            "columnName": "valid",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "countryId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TrackedCountry",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`countryId` INTEGER NOT NULL, PRIMARY KEY(`countryId`))",
+        "fields": [
+          {
+            "fieldPath": "countryId",
+            "columnName": "countryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "countryId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '227bebb8144ea56226fab6dacbe2a0c5')"
+    ]
+  }
+}

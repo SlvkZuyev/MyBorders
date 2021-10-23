@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.overtimedevs.bordersproject.data.repository.CountryRepository
+import com.overtimedevs.bordersproject.data.repository.UserRepository
 import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.extensions.plusAssign
 import com.overtimedevs.bordersproject.extensions.toCountryCard
@@ -16,7 +17,7 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class TrackedCountriesViewModel(private val countryRepository: CountryRepository) : ViewModel() {
+class TrackedCountriesViewModel(private val countryRepository: CountryRepository, private val userRepository: UserRepository) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     val isLoading = ObservableField(false)
 
