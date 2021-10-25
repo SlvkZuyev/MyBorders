@@ -1,12 +1,15 @@
 package com.overtimedevs.bordersproject.presentation.main_activity.adapters
 
 
+import android.annotation.SuppressLint
+import android.content.ClipData
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
 import android.widget.Filter
 
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 
 import androidx.recyclerview.widget.RecyclerView
@@ -22,48 +25,55 @@ interface OnClickListener{
     fun onStarClick(countryCardItemViewModel: CountryCardItemViewModel)
 }
 
-class CountriesRVAdapter
-    (
-    private var localDataSet: MutableList<CountryCardItemViewModel>
-) :
+class CountriesRVAdapter() :
     RecyclerView.Adapter<CountriesRVAdapter.ViewHolder>() {
 
-    private var onClickListener : OnClickListener? = null
-    var initialDataSet = ArrayList<CountryCardItemViewModel>().apply {
-        addAll(localDataSet)
+    private val differCallback = object: DiffUtil.ItemCallback<CountryCardItemViewModel>() {
+        override fun areItemsTheSame(oldItem: CountryCardItemViewModel, newItem: CountryCardItemViewModel): Boolean {
+            return oldItem.countryId == newItem.countryId
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: CountryCardItemViewModel, newItem: CountryCardItemViewModel): Boolean {
+            return oldItem == newItem
+        }
     }
+
+    private val differ = AsyncListDiffer(this, differCallback)
+
+    private var onClickListener : OnClickListener? = null
+    var initialDataSet = ArrayList<CountryCardItemViewModel>()
 
     fun setOnClickLister(onClickListener: OnClickListener){
         this.onClickListener = onClickListener
     }
 
     fun setNewList(newData: List<CountryCardItemViewModel>) {
-        localDataSet = newData.toMutableList()
+        differ.submitList(newData)
         initialDataSet = ArrayList<CountryCardItemViewModel>().apply {
-            addAll(localDataSet)
+           addAll(newData)
         }
-        notifyDataSetChanged()
     }
 
     fun removeCountry(countryCardItemViewModel: CountryCardItemViewModel) {
-        var ind = 0
-        var countrycd: CountryCardItemViewModel? = null
-        for ((index, country) in localDataSet.withIndex()) {
+        var countryId: CountryCardItemViewModel? = null
+        val prevList = mutableListOf<CountryCardItemViewModel>()
+        prevList.addAll(differ.currentList)
+
+        for ((index, country) in prevList.withIndex()) {
             if (country.countryId == countryCardItemViewModel.countryId) {
-                ind = index
-                countrycd = country
+                countryId = country
                 break
             }
         }
 
-        localDataSet.remove(countrycd)
-        notifyItemRemoved(ind)
-        notifyItemRangeChanged(0, localDataSet.size)
+        prevList.remove(countryId)
+        differ.submitList(prevList)
     }
 
     class ViewHolder(
         var binding: ItemCountryCardBinding,
-        val onClickListener: OnClickListener?,
+        private val onClickListener: OnClickListener?,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun setCountryCard(countryItemViewModel: CountryCardItemViewModel) {
             binding.countryCard = countryItemViewModel
@@ -94,12 +104,12 @@ class CountriesRVAdapter
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.setCountryCard(localDataSet[position])
+        viewHolder.setCountryCard(differ.currentList[position])
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
-        return localDataSet.size
+        return differ.currentList.size
     }
 
     fun getFilter(): Filter {
@@ -127,29 +137,9 @@ class CountriesRVAdapter
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             if (results?.values is ArrayList<*>) {
                 val filteredDataset = results.values as ArrayList<CountryCardItemViewModel>
-                //notifyChanges(localDataSet, filteredDataset)
-                localDataSet.clear()
-                localDataSet.addAll(filteredDataset)
-                notifyDataSetChanged()
+                differ.submitList(filteredDataset)
             }
         }
-    }
-
-
-
-
-    fun notifyChanges(oldList: List<CountryCardItemViewModel>, newList: List<CountryCardItemViewModel>) {
-        val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return oldList[oldItemPosition].countryId == newList[newItemPosition].countryId
-            }
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return oldList[oldItemPosition].countryId == newList[newItemPosition].countryId
-            }
-            override fun getOldListSize() = oldList.size
-            override fun getNewListSize() = newList.size
-        })
-        diff.dispatchUpdatesTo(this)
     }
 
 }

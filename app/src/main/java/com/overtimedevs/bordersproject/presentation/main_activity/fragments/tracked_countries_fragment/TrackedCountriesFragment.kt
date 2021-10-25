@@ -50,7 +50,7 @@ class TrackedCountriesFragment(): Fragment() {
         binding.trackedCountriesRv.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.lifecycleOwner = this
 
-        val rvAdapter = CountriesRVAdapter(mutableListOf())
+        val rvAdapter = CountriesRVAdapter()
         rvAdapter.setOnClickLister(object: OnClickListener{
             override fun onCardClick(countryCardItemViewModel: CountryCardItemViewModel) {
                 (activity as MainActivity).showCountryInfo(countryCardItemViewModel.countryId)

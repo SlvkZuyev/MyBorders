@@ -49,7 +49,7 @@ class AllCountriesFragment(): Fragment() {
         binding.allCountriesRv.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.lifecycleOwner = this
 
-        val rvAdapter = CountriesRVAdapter(mutableListOf())
+        val rvAdapter = CountriesRVAdapter()
         rvAdapter.setOnClickLister(object: OnClickListener{
 
             override fun onCardClick(countryCardItemViewModel: CountryCardItemViewModel) {
