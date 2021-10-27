@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.data.data_source.remote.CountryApi
+import com.overtimedevs.bordersproject.data.repository.SessionRepository
 import com.overtimedevs.bordersproject.data.util.NetManager
 
 class CountryInfoViewModelProviderFactory (val app: CountryApp, val intent: Intent) :
@@ -16,8 +17,9 @@ class CountryInfoViewModelProviderFactory (val app: CountryApp, val intent: Inte
         val countryRepository = com.overtimedevs.bordersproject.data.repository.CountryRepository(
             countryApi = countyApi,
             countryDao = countryDao,
-            netManager = NetManager(app.applicationContext)
-        )
+            netManager = NetManager(app.applicationContext),
+            sessionRepository = SessionRepository(app)
+            )
         val viewModel = CountryInfoViewModel(countryRepository)
         return viewModel as T
     }

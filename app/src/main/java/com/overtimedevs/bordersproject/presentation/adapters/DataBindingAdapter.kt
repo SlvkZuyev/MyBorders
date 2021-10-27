@@ -26,7 +26,6 @@ fun setItems(recyclerView: RecyclerView, items: List<CountryCardItemViewModel>){
 
 @BindingAdapter("app:isTracked")
 fun setTrackStatusIcon(imageView: ImageView, isTracked: Boolean){
-    Log.d("SlvkLog:BindingAdapter", "iconChanged")
     if(isTracked){
         imageView.setImageResource(R.drawable.starr_checked)
     } else {

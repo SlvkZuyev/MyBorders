@@ -58,4 +58,9 @@ class CountriesViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapt
         const val POSITION_ALL_COUNTRIES = 1
         const val POSITION_TRACKED_COUNTRIES = 0
     }
+
+    fun setNested(value: Boolean){
+        allCountriesFragment?.setNested(value)
+        trackedCountriesFragment?.setNested(value)
+    }
 }

@@ -13,8 +13,9 @@ class CountryCardItemViewModel(
     val borderStatus: String,
     val countryName: String,
     val message: String,
+    val trackStatus: Boolean
 ) : ViewModel() {
-    var isTracked = ObservableBoolean(false)
+    var isTracked = ObservableBoolean(trackStatus)
 
     var onTrackStatusChanged : ((CountryCardItemViewModel) -> Unit)? = null
     var onCountryClicked : ((CountryCardItemViewModel) -> Unit)? = null
@@ -26,7 +27,7 @@ class CountryCardItemViewModel(
     }
 
     fun setIsTracked(value: Boolean){
-        isTracked.set(value)
+       isTracked.set(value)
     }
 
     fun onCountryClicked(){

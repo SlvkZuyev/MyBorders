@@ -1,7 +1,6 @@
 package com.overtimedevs.bordersproject.data.repository
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.overtimedevs.bordersproject.data.data_source.local.CountryDao
 import com.overtimedevs.bordersproject.data.data_source.local.CountryLocalDataSource
 import com.overtimedevs.bordersproject.data.data_source.local.model.CountriesStatistic
@@ -9,14 +8,15 @@ import com.overtimedevs.bordersproject.data.data_source.remote.CountryRemoteData
 import com.overtimedevs.bordersproject.data.data_source.remote.CountryApi
 import com.overtimedevs.bordersproject.data.util.NetManager
 import com.overtimedevs.bordersproject.domain.model.Country
+import com.overtimedevs.bordersproject.domain.model.SessionInfo
 import io.reactivex.Observable
-import io.reactivex.Single
 
 
 class CountryRepository(
     private val netManager: NetManager,
     countryDao: CountryDao,
-    countryApi: CountryApi
+    countryApi: CountryApi,
+    private val sessionRepository: SessionRepository
 ) {
     private val localDataSource = CountryLocalDataSource(countryDao)
     private val remoteDataSource = CountryRemoteDataSource(countryApi)
@@ -26,6 +26,7 @@ class CountryRepository(
        if(netManager.isConnected() && loadFromRemote){
            return remoteDataSource.getCountries(originCountryCode).doOnNext {
                localDataSource.saveCountries(it)
+               refreshSessionInfo(originCountryCode)
            }
        }
         return localDataSource.getAllCountries()
@@ -54,5 +55,12 @@ class CountryRepository(
 
     fun getCountryById(countryId: Int): Observable<Country?>{
         return localDataSource.getCountryById(countryId)
+    }
+
+    private fun refreshSessionInfo(loadedCountry: String){
+        sessionRepository.saveSessionInfo(SessionInfo(
+            loadedCountriesOriginCode = loadedCountry,
+            lastFetchTime = System.currentTimeMillis()
+        ))
     }
 }

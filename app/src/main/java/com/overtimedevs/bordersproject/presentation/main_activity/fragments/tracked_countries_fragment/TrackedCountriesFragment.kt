@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.FragmentTrackedCountriesBinding
+import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.presentation.main_activity.MainActivity
 import com.overtimedevs.bordersproject.presentation.main_activity.adapters.OnClickListener
 import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRVAdapter
@@ -49,7 +50,7 @@ class TrackedCountriesFragment(): Fragment() {
         binding.viewModel = viewModel
         binding.trackedCountriesRv.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.lifecycleOwner = this
-
+        viewModel.onCountriesLoaded = {onCountriesLoaded(it)}
         val rvAdapter = CountriesRVAdapter()
         rvAdapter.setOnClickLister(object: OnClickListener{
             override fun onCardClick(countryCardItemViewModel: CountryCardItemViewModel) {
@@ -77,5 +78,17 @@ class TrackedCountriesFragment(): Fragment() {
     fun applyFilter(filter: String){
         val rvFilter = (binding.trackedCountriesRv.adapter as CountriesRVAdapter).getFilter()
         rvFilter.filter(filter)
+    }
+
+    fun setNested(value: Boolean){
+        binding.trackedCountriesRv.isNestedScrollingEnabled = value
+    }
+
+    private fun onCountriesLoaded(countries: List<Country>){
+        if(countries.isEmpty()){
+            binding.noTrackedCountriesLoadedSign.visibility = View.VISIBLE
+        } else {
+            binding.noTrackedCountriesLoadedSign.visibility = View.GONE
+        }
     }
 }

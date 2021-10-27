@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.overtimedevs.bordersproject.data.repository.CountryRepository
+import com.overtimedevs.bordersproject.data.repository.SessionRepository
 import com.overtimedevs.bordersproject.data.repository.UserRepository
 import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.extensions.plusAssign
@@ -17,7 +18,10 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class TrackedCountriesViewModel(private val countryRepository: CountryRepository, private val userRepository: UserRepository) : ViewModel() {
+class TrackedCountriesViewModel(
+    private val countryRepository: CountryRepository,
+    private val userRepository: UserRepository,
+) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     val isLoading = ObservableField(false)
 
@@ -27,6 +31,8 @@ class TrackedCountriesViewModel(private val countryRepository: CountryRepository
     var showedCountryItemViewModels: List<CountryCardItemViewModel> = emptyList()
     var canShowChanges = false
     var isFirstTimeDisplayed = false
+
+    var onCountriesLoaded: (List<Country>) -> Unit = {}
 
     fun loadTrackedCountries() {
         compositeDisposable += countryRepository.getTrackedCountries()
@@ -57,16 +63,17 @@ class TrackedCountriesViewModel(private val countryRepository: CountryRepository
                                 setIsTracked(true)
                             }
                         }
-                        if(canShowChanges){
+
+                        if (canShowChanges) {
                             _countriesCards.value = showedCountryItemViewModels
                         }
 
-                        if(!isFirstTimeDisplayed){
+                        if (!isFirstTimeDisplayed) {
                             _countriesCards.value = showedCountryItemViewModels
                             isFirstTimeDisplayed = true
                         }
 
-                            //_countriesCards.value = trackedCountries
+                        onCountriesLoaded(t)
                     }
                 })
     }

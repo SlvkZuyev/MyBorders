@@ -13,5 +13,6 @@
         <item name="android:statusBarColor">#553059</item>
         <!-- Customize your theme here. -->
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="android:editTextColor">@color/lightGrey</item>
     </style>
 </resources>

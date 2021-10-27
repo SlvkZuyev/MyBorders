@@ -103,6 +103,7 @@ fun Country.toCountryCard() : CountryCardItemViewModel {
         borderStatus = borderStatus,
         countryName = countryName,
         message = summary,
+        trackStatus = isTracked
     )
 }
 

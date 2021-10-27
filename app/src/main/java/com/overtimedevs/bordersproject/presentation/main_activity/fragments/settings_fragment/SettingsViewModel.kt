@@ -10,7 +10,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class SettingsViewModel(val repository: UserRepository) : ViewModel() {
-    // TODO: Implement the ViewModel
     val savedUserSettings = repository.getUserSettings()
     val newUserSettings = savedUserSettings
 

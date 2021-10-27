@@ -16,6 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
@@ -28,6 +29,7 @@
                     android:fitsSystemWindows="true"
                     app:collapsedTitleTextAppearance="@style/Toolbar.TitleText.Collapsed"
                     app:contentScrim="?attr/colorPrimary"
+                    app:scrimAnimationDuration="200"
                     app:expandedTitleGravity="top|center_horizontal"
                     app:expandedTitleMarginEnd="64dp"
                     app:expandedTitleMarginStart="48dp"
@@ -35,6 +37,7 @@
                     app:expandedTitleTextAppearance="@style/Toolbar.TitleText.Expanded"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                     app:title="Statistic">
+
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -45,7 +48,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
-                            app:layout_collapseMode="parallax"
+
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -197,18 +200,6 @@
             </com.google.android.material.appbar.AppBarLayout>
 
 
-            <!--androidx.recyclerview.widget.RecyclerView>
-                android:id="@+id/countries_rv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="true"
-                android:paddingTop="16dp"
-                android:scrollbars="vertical"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            </androidx.recyclerview.widget.RecyclerView-->
-
-
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
@@ -225,7 +216,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="16dp"
                 android:clickable="true"
-                app:tint="#DFDFDF"
+                app:tint="@color/lightGrey"
                 android:backgroundTint="#663C65"
                 app:srcCompat="@drawable/icon_settings" />
 

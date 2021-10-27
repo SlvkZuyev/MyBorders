@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.FragmentAllCountriesBinding
+import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.presentation.main_activity.MainActivity
 import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRVAdapter
 import com.overtimedevs.bordersproject.presentation.main_activity.adapters.OnClickListener
@@ -48,7 +49,14 @@ class AllCountriesFragment(): Fragment() {
         binding.viewModel = viewModel
         binding.allCountriesRv.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.lifecycleOwner = this
+        viewModel.onCountriesLoaded = {onCountriesLoaded(it)}
 
+        setupRecyclerView()
+
+        viewModel.loadAllCountries(forceShowChanges = true)
+    }
+
+    private fun setupRecyclerView(){
         val rvAdapter = CountriesRVAdapter()
         rvAdapter.setOnClickLister(object: OnClickListener{
 
@@ -61,7 +69,6 @@ class AllCountriesFragment(): Fragment() {
 
         })
         binding.allCountriesRv.adapter = rvAdapter
-        viewModel.loadAllCountries()
     }
 
     fun isVisible(value: Boolean){
@@ -77,4 +84,15 @@ class AllCountriesFragment(): Fragment() {
         rvFilter.filter(filter)
     }
 
+    fun setNested(value: Boolean){
+        binding.allCountriesRv.isNestedScrollingEnabled = value
+    }
+
+    private fun onCountriesLoaded(countries: List<Country>){
+        if(countries.isEmpty()){
+            binding.noCountriesLoadedSign.visibility = View.VISIBLE
+        } else {
+            binding.noCountriesLoadedSign.visibility = View.GONE
+        }
+    }
 }

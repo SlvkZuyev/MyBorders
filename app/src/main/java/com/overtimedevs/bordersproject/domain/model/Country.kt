@@ -1,7 +1,5 @@
 package com.overtimedevs.bordersproject.domain.model
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -12,7 +10,7 @@ class Country(
 
     @PrimaryKey
     val countryId: Int,
-    val isTracked: Boolean = false,
+    var isTracked: Boolean = false,
     val lastModified: Long,
     val borderStatus: String = "No data",
     val countryName: String = "No data",

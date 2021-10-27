@@ -3,6 +3,7 @@ package com.overtimedevs.bordersproject.presentation.main_activity.adapters
 
 import android.annotation.SuppressLint
 import android.content.ClipData
+import android.util.Log
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
@@ -30,7 +31,10 @@ class CountriesRVAdapter() :
 
     private val differCallback = object: DiffUtil.ItemCallback<CountryCardItemViewModel>() {
         override fun areItemsTheSame(oldItem: CountryCardItemViewModel, newItem: CountryCardItemViewModel): Boolean {
-            return oldItem.countryId == newItem.countryId
+            return  oldItem.countryId == newItem.countryId &&
+                    oldItem.message == newItem.message &&
+                    oldItem.borderStatus == newItem.borderStatus &&
+                    oldItem.trackStatus == newItem.trackStatus
         }
 
         @SuppressLint("DiffUtilEquals")
