@@ -22,14 +22,35 @@ class CountryRepository(
     private val remoteDataSource = CountryRemoteDataSource(countryApi)
 
     @SuppressLint("CheckResult")
-    fun getAllCountries(originCountryCode: String = "ua", loadFromRemote: Boolean = false): Observable<List<Country>> {
-       if(netManager.isConnected() && loadFromRemote){
-           return remoteDataSource.getCountries(originCountryCode).doOnNext {
-               localDataSource.saveCountries(it)
-               refreshSessionInfo(originCountryCode)
-           }
-       }
+    fun getAllCountries(
+        originCountryCode: String = sessionRepository.getSessionInfo().loadedCountriesOriginCode,
+        loadFromRemote: Boolean = false
+    ): Observable<List<Country>> {
+
+
+        if (netManager.isConnected() && loadFromRemote) {
+            return remoteDataSource.getCountries(originCountryCode).doOnNext {
+                localDataSource.saveCountries(it)
+                refreshSessionInfo(originCountryCode)
+            }
+        }
         return localDataSource.getAllCountries()
+    }
+
+    fun getSavedCountries(): Observable<List<Country>> {
+        return localDataSource.getAllCountries()
+    }
+
+    fun loadCountries(): Observable<List<Country>> {
+        val loadedOrigin = sessionRepository.getSessionInfo().loadedCountriesOriginCode
+        if (loadedOrigin == SessionInfo.defaultLoadedCountriesOrigin) {
+            return Observable.just(emptyList())
+        }
+        return if (netManager.isConnected()) {
+            remoteDataSource.getCountries()
+        } else {
+            Observable.just(emptyList())
+        }
     }
 
     //todo: Починить это ебаное говнище
@@ -37,30 +58,32 @@ class CountryRepository(
         return localDataSource.getTrackedCountries()
     }
 
-    fun addTrackedCountryById(countryId: Int){
+    fun addTrackedCountryById(countryId: Int) {
         localDataSource.trackCountryById(countryId)
     }
 
-    fun removeTrackedCountryById(countryId: Int){
+    fun removeTrackedCountryById(countryId: Int) {
         localDataSource.removeTrackedCountryById(countryId)
     }
 
-    fun getTrackedCountriesStatistic() : Observable<CountriesStatistic>{
+    fun getTrackedCountriesStatistic(): Observable<CountriesStatistic> {
         return localDataSource.getTrackedCountriesStatistic()
     }
 
-    fun getAllCountriesStatistic() : Observable<CountriesStatistic>{
+    fun getAllCountriesStatistic(): Observable<CountriesStatistic> {
         return localDataSource.getAllCountriesStatistic()
     }
 
-    fun getCountryById(countryId: Int): Observable<Country?>{
+    fun getCountryById(countryId: Int): Observable<Country?> {
         return localDataSource.getCountryById(countryId)
     }
 
-    private fun refreshSessionInfo(loadedCountry: String){
-        sessionRepository.saveSessionInfo(SessionInfo(
-            loadedCountriesOriginCode = loadedCountry,
-            lastFetchTime = System.currentTimeMillis()
-        ))
+    private fun refreshSessionInfo(loadedCountry: String) {
+        sessionRepository.saveSessionInfo(
+            SessionInfo(
+                loadedCountriesOriginCode = loadedCountry,
+                lastFetchTime = System.currentTimeMillis()
+            )
+        )
     }
 }

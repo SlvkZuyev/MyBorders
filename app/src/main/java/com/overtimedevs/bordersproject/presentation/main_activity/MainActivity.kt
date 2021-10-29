@@ -24,13 +24,12 @@ import com.overtimedevs.bordersproject.presentation.main_activity.adapters.Count
 import com.overtimedevs.bordersproject.presentation.main_activity.fragments.settings_fragment.SettingsDialogue
 import com.overtimedevs.bordersproject.R
 import android.view.inputmethod.InputMethodManager
+import com.overtimedevs.bordersproject.notifications.MyAlarmManager
 
-//Todo: Searching in all countries tab sometimes affects tracked countries
-//Todo: Countries not always add to track tab while on search mode
 class MainActivity : AppCompatActivity() {
     var viewPager: ViewPager2? = null
     lateinit var binding: ActivityMainBinding
-    var searchView : SearchView? = null
+    var searchView: SearchView? = null
 
 
     private val viewModel: MainViewModel by lazy {
@@ -61,12 +60,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnSettings.setOnClickListener { onSettingsClick() }
 
-        if(viewModel.isFirstOpen()){
+        if (viewModel.isFirstOpen()) {
             onFirstOpen()
         }
+
+        initAlarmManager()
     }
 
-    private fun setupViewPager(){
+    private fun setupViewPager() {
         val viewPagerAdapter = CountriesViewPagerAdapter(this)
         viewPager = binding.viewPager
         viewPager?.adapter = viewPagerAdapter
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun setupTabLayout(){
+    private fun setupTabLayout() {
         TabLayoutMediator(binding.tab, binding.viewPager) { tab, position ->
             if (position == 0) {
                 tab.text = "Tracked"
@@ -109,24 +110,43 @@ class MainActivity : AppCompatActivity() {
 
     private fun onSettingsClick() {
         val settingsDialogue = SettingsDialogue()
-        settingsDialogue.onNewSettingsApplied = { onSettingsApplied(it) }
+        settingsDialogue.onNewSettingsApplied =
+            { oldSettings, newSettings -> onSettingsApplied(oldSettings, newSettings) }
         settingsDialogue.show(supportFragmentManager, settingsDialogue.tag)
 
+        binding.toolbar.collapseActionView()
         quitSearchMode()
     }
 
-    private fun onSettingsApplied(newSettings: UserSettings) {
+    private fun onSettingsApplied(oldSettings: UserSettings, newSettings: UserSettings) {
         (viewPager?.adapter as CountriesViewPagerAdapter).notifySettingsChanged()
         viewModel.notifySettingsChanged()
-        showSnackBar(newSettings.originCountry)
+
+        if (oldSettings.originCountry != newSettings.originCountry) {
+            val message = "Origin country changed to: ${newSettings.originCountry}"
+            showSnackBar(message)
+        } else
+        if (oldSettings.isVaccinated != newSettings.isVaccinated){
+            val message: String
+
+            if(newSettings.isVaccinated){
+                message = "You are vaccinated now"
+            } else {
+                message = "You are not vaccinated now"
+            }
+
+            showSnackBar(message)
+        }
+
     }
 
-    private fun showSnackBar(countryName: String){
-        Snackbar.make(binding.root, "Origin country changed to: $countryName", Snackbar.LENGTH_LONG)
+
+    private fun showSnackBar(text: String) {
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show();
     }
 
-    private fun onSearchIconClick(searchView: MenuItem){
+    private fun onSearchIconClick(searchView: MenuItem) {
 
     }
 
@@ -143,19 +163,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 hideKeyBoard()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                (viewPager?.adapter as CountriesViewPagerAdapter).notifyFilterChanged(newText!!)
+                changeQuery(newText!!)
                 return true
             }
         })
 
-        searchItem.setOnActionExpandListener(object: MenuItem.OnActionExpandListener{
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
                 binding.appBarLayout.setExpanded(false)
                 setToolbarExpandEnabled(false)
@@ -171,34 +191,46 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun hideKeyBoard(){
+    private fun hideKeyBoard() {
         val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
-    private fun onPageChanged(position: Int){
-        viewModel.onPageChanged(position)
-        quitSearchMode()
+    fun changeQuery(query: String) {
+        (viewPager?.adapter as CountriesViewPagerAdapter).notifyFilterChanged(query)
     }
 
-    private fun quitSearchMode(){
+    private fun onPageChanged(position: Int) {
+        quitSearchMode()
+        viewModel.onPageChanged(position)
+    }
+
+    private fun quitSearchMode() {
         setToolbarExpandEnabled(true)
+        hideKeyBoard()
+
+        searchView?.isIconified = true
         binding.toolbar.collapseActionView()
     }
 
-    private fun setToolbarExpandEnabled(value: Boolean){
+    private fun setToolbarExpandEnabled(value: Boolean) {
         val adapter = (viewPager?.adapter as CountriesViewPagerAdapter)
         adapter.setNested(value)
     }
 
 
-    private fun onFirstOpen(){
+    private fun onFirstOpen() {
         Handler(Looper.getMainLooper()).postDelayed({
             binding.tab.getTabAt(1)?.select()
         }, 500)
         Handler(Looper.getMainLooper()).postDelayed({
             binding.btnSettings.performClick()
         }, 1000)
+    }
+
+
+    private fun initAlarmManager() {
+        MyAlarmManager.setup(this)
     }
 
 }

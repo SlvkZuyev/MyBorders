@@ -1,8 +1,8 @@
 package com.overtimedevs.bordersproject.domain.model
 
 class UserSettings(
-    var originCountry: String,
-    var isVaccinated: Boolean
+    var originCountry: String = defaultOriginCountry,
+    var isVaccinated: Boolean = defaultVaccinationStatus
 ) {
     companion object{
         const val defaultOriginCountry = "undefined"

@@ -51,7 +51,8 @@ class Country(
 
     override fun equals(other: Any?): Boolean {
         val otherCountry = other as Country
-        return countryId == otherCountry.countryId
+        return countryId == otherCountry.countryId &&
+                lastModified == otherCountry.lastModified
     }
 
 

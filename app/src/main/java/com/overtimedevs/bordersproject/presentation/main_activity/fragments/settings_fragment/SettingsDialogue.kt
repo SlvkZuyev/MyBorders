@@ -2,15 +2,12 @@ package com.overtimedevs.bordersproject.presentation.main_activity.fragments.set
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -21,7 +18,7 @@ import com.overtimedevs.bordersproject.domain.model.UserSettings
 
 class SettingsDialogue : BottomSheetDialogFragment() {
 
-    var onNewSettingsApplied : ((UserSettings) -> Unit)? = null
+    var onNewSettingsApplied : (oldSettings: UserSettings, newSettings: UserSettings) -> Unit = {_, _ -> }
 
     companion object {
         fun newInstance() = SettingsDialogue()
@@ -84,8 +81,14 @@ class SettingsDialogue : BottomSheetDialogFragment() {
     private fun onClickSubmit(){
         val selectedCountry = binding.menu.editText?.text.toString()
         viewModel.setOriginCountry(selectedCountry)
-        viewModel.onClickSubmit()
-        onNewSettingsApplied?.invoke(viewModel.newUserSettings)
+
+        if(viewModel.settingsChanged() && viewModel.settingsAreValid()){
+            onNewSettingsApplied(
+                viewModel.savedUserSettings,
+                viewModel.newUserSettings)
+        }
+
+        viewModel.saveNewSettings()
         dialog?.dismiss()
     }
 
@@ -98,7 +101,6 @@ class SettingsDialogue : BottomSheetDialogFragment() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        Log.d("SlvkLog", "dis")
         super.onDismiss(dialog)
     }
 }

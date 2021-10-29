@@ -1,6 +1,5 @@
 package com.overtimedevs.bordersproject.presentation.main_activity.adapters
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -47,10 +46,10 @@ class CountriesViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapt
     fun notifyFilterChanged(filter: String) {
         if (currentPosition == POSITION_ALL_COUNTRIES) {
             allCountriesFragment?.applyFilter(filter)
-            trackedCountriesFragment?.applyFilter("")
+            //trackedCountriesFragment?.applyFilter(" ")
         } else if (currentPosition == POSITION_TRACKED_COUNTRIES) {
             trackedCountriesFragment?.applyFilter(filter)
-            allCountriesFragment?.applyFilter("")
+            //allCountriesFragment?.applyFilter(" ")
         }
     }
 

@@ -1,6 +1,7 @@
 package com.overtimedevs.bordersproject.presentation.main_activity.fragments.all_countries_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,18 @@ class AllCountriesFragment(): Fragment() {
         setupRecyclerView()
 
         viewModel.loadAllCountries(forceShowChanges = true)
+
+        if(viewModel.settingsNotApplied()){
+            showSettingsSign()
+        }
+    }
+
+    private fun showSettingsSign(){
+        binding.noCountriesLoadedSign.visibility = View.VISIBLE
+    }
+
+    private fun hideSettingsSign(){
+        binding.noCountriesLoadedSign.visibility = View.GONE
     }
 
     private fun setupRecyclerView(){
@@ -77,11 +90,14 @@ class AllCountriesFragment(): Fragment() {
 
     fun notifySettingsChanged() {
         viewModel.notifySettingsChanged()
+        hideSettingsSign()
     }
 
     fun applyFilter(filter: String){
         val rvFilter = (binding.allCountriesRv.adapter as CountriesRVAdapter).getFilter()
         rvFilter.filter(filter)
+
+        Log.d("AllCountries", "New filter applied: ${filter}")
     }
 
     fun setNested(value: Boolean){
@@ -90,9 +106,9 @@ class AllCountriesFragment(): Fragment() {
 
     private fun onCountriesLoaded(countries: List<Country>){
         if(countries.isEmpty()){
-            binding.noCountriesLoadedSign.visibility = View.VISIBLE
+            //binding.noCountriesLoadedSign.visibility = View.VISIBLE
         } else {
-            binding.noCountriesLoadedSign.visibility = View.GONE
+            hideSettingsSign()
         }
     }
 }

@@ -7,6 +7,17 @@ import com.overtimedevs.bordersproject.data.data_source.local.CountryDatabase
 import dagger.hilt.android.HiltAndroidApp
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import android.app.AlarmManager
+
+import android.app.PendingIntent
+import android.content.Context
+
+import com.overtimedevs.bordersproject.notifications.NotificationReceiver
+
+import android.content.Intent
+import android.util.Log
+import java.util.*
+
 
 //
 @HiltAndroidApp
@@ -32,5 +43,7 @@ class CountryApp : Application() {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
+
+
 
 }

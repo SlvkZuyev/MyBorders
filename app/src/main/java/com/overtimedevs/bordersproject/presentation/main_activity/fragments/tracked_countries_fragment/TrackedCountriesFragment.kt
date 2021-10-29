@@ -1,6 +1,7 @@
 package com.overtimedevs.bordersproject.presentation.main_activity.fragments.tracked_countries_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,6 +79,8 @@ class TrackedCountriesFragment(): Fragment() {
     fun applyFilter(filter: String){
         val rvFilter = (binding.trackedCountriesRv.adapter as CountriesRVAdapter).getFilter()
         rvFilter.filter(filter)
+
+        Log.d("TrackedCountries", "New filter applied: ${filter}")
     }
 
     fun setNested(value: Boolean){

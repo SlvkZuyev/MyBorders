@@ -22,6 +22,7 @@ class TrackedCountriesViewModel(
     private val countryRepository: CountryRepository,
     private val userRepository: UserRepository,
 ) : ViewModel() {
+    private val TAG = "TrackedCountriesViewMod"
     private val compositeDisposable = CompositeDisposable()
     val isLoading = ObservableField(false)
 
@@ -42,18 +43,18 @@ class TrackedCountriesViewModel(
                 object : DisposableObserver<List<Country>>() {
 
                     override fun onError(e: Throwable) {
-                        Log.d("Tracked", "onError: ${e.message}")
+                        Log.d(TAG, "onError: ${e.message}")
                         //if some error happens in our data layer our app will not crash, we will
                         // get error here
                     }
 
                     override fun onComplete() {
-                        Log.d("Tracked", "onComplete: ")
+                        Log.d(TAG, "onComplete: ")
                         isLoading.set(false)
                     }
 
                     override fun onNext(t: List<Country>) {
-                        Log.d("Tracked", "onNext: ")
+                        Log.d(TAG, "onNext: ${t.size}")
                         showedCountryItemViewModels = t.map { it.toCountryCard() }
                         showedCountryItemViewModels.forEach {
                             it.apply {
@@ -64,8 +65,10 @@ class TrackedCountriesViewModel(
                             }
                         }
 
+                        _countriesCards.value = showedCountryItemViewModels
+                        Log.d(TAG, "onNext: changes are displayed")
                         if (canShowChanges) {
-                            _countriesCards.value = showedCountryItemViewModels
+
                         }
 
                         if (!isFirstTimeDisplayed) {

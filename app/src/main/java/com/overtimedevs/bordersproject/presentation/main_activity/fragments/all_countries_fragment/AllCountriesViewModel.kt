@@ -39,6 +39,10 @@ class AllCountriesViewModel(
 
     var onCountriesLoaded: (List<Country>) -> Unit = {}
 
+    fun settingsNotApplied() : Boolean{
+        return userSettings.originCountry == UserSettings.defaultOriginCountry
+    }
+
     private fun markCountries(allCountries: List<Country>, trackedCountries: List<Country>) : List<Country>{
         for(trackedCountry in trackedCountries){
             allCountries.find { it.countryId == trackedCountry.countryId }?.isTracked = true
