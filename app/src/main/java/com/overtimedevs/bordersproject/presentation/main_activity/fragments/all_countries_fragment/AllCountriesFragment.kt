@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.FragmentAllCountriesBinding
@@ -32,6 +33,7 @@ class AllCountriesFragment(): Fragment() {
         )[AllCountriesViewModel::class.java]
     }
 
+    private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var binding: FragmentAllCountriesBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +48,14 @@ class AllCountriesFragment(): Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setupShimmer()
 
         binding.viewModel = viewModel
         binding.allCountriesRv.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.lifecycleOwner = this
-        viewModel.onCountriesLoaded = {onCountriesLoaded(it)}
 
+        viewModel.onCountriesStartLoading = { onCountriesStartLoading() }
+        viewModel.onCountriesLoaded = {onCountriesLoaded(it)}
         setupRecyclerView()
 
         viewModel.loadAllCountries(forceShowChanges = true)
@@ -60,6 +64,11 @@ class AllCountriesFragment(): Fragment() {
             showSettingsSign()
         }
     }
+
+    private fun setupShimmer(){
+        shimmerViewContainer = binding.shimmerViewContainer
+    }
+
 
     private fun showSettingsSign(){
         binding.noCountriesLoadedSign.visibility = View.VISIBLE
@@ -104,7 +113,17 @@ class AllCountriesFragment(): Fragment() {
         binding.allCountriesRv.isNestedScrollingEnabled = value
     }
 
+    private fun onCountriesStartLoading(){
+        binding.allCountriesRv.visibility = View.INVISIBLE
+        shimmerViewContainer.visibility = View.VISIBLE
+        shimmerViewContainer.startShimmerAnimation()
+    }
+
     private fun onCountriesLoaded(countries: List<Country>){
+        shimmerViewContainer.visibility = View.GONE
+        shimmerViewContainer.stopShimmerAnimation()
+        binding.allCountriesRv.visibility = View.VISIBLE
+
         if(countries.isEmpty()){
             //binding.noCountriesLoadedSign.visibility = View.VISIBLE
         } else {

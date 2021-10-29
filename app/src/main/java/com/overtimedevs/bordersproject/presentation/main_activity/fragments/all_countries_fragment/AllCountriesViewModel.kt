@@ -38,6 +38,7 @@ class AllCountriesViewModel(
     var canDisplayChanges = false
 
     var onCountriesLoaded: (List<Country>) -> Unit = {}
+    var onCountriesStartLoading: () -> Unit = {}
 
     fun settingsNotApplied() : Boolean{
         return userSettings.originCountry == UserSettings.defaultOriginCountry
@@ -70,6 +71,8 @@ class AllCountriesViewModel(
             )
             return
         }
+        onCountriesStartLoading()
+
         compositeDisposable += Observable
             .zip(countryRepository.getAllCountries(
                 getCountryCode(userSettings.originCountry)!!,

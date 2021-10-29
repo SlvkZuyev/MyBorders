@@ -70,7 +70,6 @@ fun getQuarantineMessage(isQuarantineRequared : Boolean, messageId : String?, co
 
 //todo make readable
 private fun getSummary(unvaccinatedBorderStatus: String?, vaccinatedArrivalTestRequired: Boolean, countryName: String) : String{
-    Log.d("ERROEOEOEO", "getSummary: $countryName")
     return if(unvaccinatedBorderStatus == "CLOSED" ){
         if(vaccinatedArrivalTestRequired){
             "Unvaccinated visitors will not be allowed to enter $countryName."

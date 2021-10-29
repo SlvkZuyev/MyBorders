@@ -81,6 +81,7 @@ class SettingsDialogue : BottomSheetDialogFragment() {
     private fun onClickSubmit(){
         val selectedCountry = binding.menu.editText?.text.toString()
         viewModel.setOriginCountry(selectedCountry)
+        viewModel.saveNewSettings()
 
         if(viewModel.settingsChanged() && viewModel.settingsAreValid()){
             onNewSettingsApplied(
@@ -88,7 +89,6 @@ class SettingsDialogue : BottomSheetDialogFragment() {
                 viewModel.newUserSettings)
         }
 
-        viewModel.saveNewSettings()
         dialog?.dismiss()
     }
 
