@@ -4,8 +4,12 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NetManager(private var applicationContext: Context) {
+@Singleton
+class NetManager (private var applicationContext: Context) {
     private var status: Boolean? = false
 
     val isConnectedToInternet: Boolean

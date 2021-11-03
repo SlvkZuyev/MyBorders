@@ -1,9 +1,10 @@
 package com.overtimedevs.bordersproject.data.data_source.remote
 
 import com.overtimedevs.bordersproject.data.data_source.remote.model.CountryDto
+import dagger.Provides
 import io.reactivex.Observable
 import retrofit2.http.*
-
+import javax.inject.Singleton
 
 interface CountryApi {
     @FormUrlEncoded

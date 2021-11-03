@@ -10,21 +10,25 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.data.repository.UserRepository
 import com.overtimedevs.bordersproject.databinding.FragmentSettingsBinding
 import com.overtimedevs.bordersproject.domain.model.UserSettings
+import com.overtimedevs.bordersproject.presentation.main_activity.fragments.all_countries_fragment.AllCountriesViewModel
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsDialogue : BottomSheetDialogFragment() {
-
+    private val viewModel by viewModels<SettingsViewModel>()
     var onNewSettingsApplied : (oldSettings: UserSettings, newSettings: UserSettings) -> Unit = {_, _ -> }
 
     companion object {
         fun newInstance() = SettingsDialogue()
     }
 
-    private lateinit var viewModel: SettingsViewModel
     lateinit var binding: FragmentSettingsBinding
 
     override fun onCreateView(
@@ -44,8 +48,6 @@ class SettingsDialogue : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = SettingsViewModel(UserRepository(requireContext()))
 
         val items = viewModel.getCountries()
         val adapter = ArrayAdapter(requireContext(), R.layout.item_list_country, items)

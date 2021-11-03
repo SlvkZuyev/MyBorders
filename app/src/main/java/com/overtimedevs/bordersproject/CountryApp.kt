@@ -18,32 +18,29 @@ import android.content.Intent
 import android.util.Log
 import java.util.*
 
-
-//
 @HiltAndroidApp
 class CountryApp : Application() {
-    companion object {
-        lateinit var retrofit: Retrofit
-        lateinit var countryDatabase: CountryDatabase
-    }
 
-    override fun onCreate() {
-        super.onCreate()
-        countryDatabase = Room.databaseBuilder(
-            applicationContext,
-            CountryDatabase::class.java,
-            CountryDatabase.DATABASE_NAME
-        )
-            .fallbackToDestructiveMigration()
-            .build()
+//    companion object {
+//        lateinit var retrofit: Retrofit
+//        lateinit var countryDatabase: CountryDatabase
+//    }
 
-        retrofit = Retrofit.Builder()
-            .baseUrl("https://www.kayak.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-    }
-
-
+//    override fun onCreate() {
+//        super.onCreate()
+//        countryDatabase = Room.databaseBuilder(
+//            applicationContext,
+//            CountryDatabase::class.java,
+//            CountryDatabase.DATABASE_NAME
+//        )
+//            .fallbackToDestructiveMigration()
+//            .build()
+//
+//        retrofit = Retrofit.Builder()
+//            .baseUrl("https://www.kayak.com/")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//            .build()
+//    }
 
 }

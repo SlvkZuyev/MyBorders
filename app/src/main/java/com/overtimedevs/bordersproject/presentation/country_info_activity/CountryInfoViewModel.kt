@@ -8,12 +8,15 @@ import com.overtimedevs.bordersproject.data.repository.CountryRepository
 import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.extensions.plusAssign
 import com.overtimedevs.bordersproject.extensions.toCountryCard
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class CountryInfoViewModel(private val countryRepository: CountryRepository) : ViewModel() {
+@HiltViewModel
+class CountryInfoViewModel @Inject constructor (private val countryRepository: CountryRepository) : ViewModel() {
     private val _country : MutableLiveData<Country> = MutableLiveData(null)
     val country : LiveData<Country> = _country
 

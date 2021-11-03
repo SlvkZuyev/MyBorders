@@ -14,14 +14,18 @@ import com.overtimedevs.bordersproject.extensions.plusAssign
 import com.overtimedevs.bordersproject.extensions.toCountryCard
 import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
 import com.overtimedevs.bordersproject.presentation.utils.Constants
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ViewModelScoped
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import java.util.*
+import javax.inject.Inject
 
-class AllCountriesViewModel(
+@HiltViewModel
+class AllCountriesViewModel @Inject constructor (
     private val countryRepository: CountryRepository,
     private val userRepository: UserRepository,
     private val sessionRepository: SessionRepository
@@ -86,15 +90,15 @@ class AllCountriesViewModel(
                 object : DisposableObserver<List<Country>>() {
 
                     override fun onError(e: Throwable) {
-                        Log.d("ViewModel", "onError: ${e.message}")
+                        Log.d("AllCountriesVM", "onError: ${e.message}")
                     }
 
                     override fun onComplete() {
-                        Log.d("ViewModel", "onComplete: ")
+                        Log.d("AllCountriesVM", "onComplete: ")
                     }
 
                     override fun onNext(t: List<Country>) {
-                        Log.d("SlvkLog", "got new To ${userSettings.originCountry}")
+                        Log.d("AllCountriesVM", "onNext: got new to ${userSettings.originCountry}")
                         val newData = t.map { it.toCountryCard() }
                         onNewDataReceived(newData, forceShowChanges)
                         onCountriesLoaded(t)

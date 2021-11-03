@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -15,11 +17,18 @@ import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.FragmentAllCountriesBinding
 import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.presentation.main_activity.MainActivity
+import com.overtimedevs.bordersproject.presentation.main_activity.MainViewModel
 import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRVAdapter
 import com.overtimedevs.bordersproject.presentation.main_activity.adapters.OnClickListener
 import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AllCountriesFragment(): Fragment() {
+
+    private val viewModel by viewModels<AllCountriesViewModel>()
+    /*
     private val viewModel: AllCountriesViewModel by lazy {
         val application = activity?.application
         val app = application as CountryApp
@@ -32,6 +41,8 @@ class AllCountriesFragment(): Fragment() {
             viewModelProviderFactory
         )[AllCountriesViewModel::class.java]
     }
+
+     */
 
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var binding: FragmentAllCountriesBinding

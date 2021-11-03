@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.overtimedevs.bordersproject.CountryApp
@@ -16,10 +17,16 @@ import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.presentation.main_activity.MainActivity
 import com.overtimedevs.bordersproject.presentation.main_activity.adapters.OnClickListener
 import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRVAdapter
+import com.overtimedevs.bordersproject.presentation.main_activity.fragments.all_countries_fragment.AllCountriesViewModel
 import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TrackedCountriesFragment(): Fragment() {
 
+    private val viewModel by viewModels<TrackedCountriesViewModel>()
+    /*
     private val viewModel: TrackedCountriesViewModel by lazy {
         val application = activity?.application
         val app = application as CountryApp
@@ -32,6 +39,8 @@ class TrackedCountriesFragment(): Fragment() {
             viewModelProviderFactory
         )[TrackedCountriesViewModel::class.java]
     }
+
+     */
 
     private lateinit var binding: FragmentTrackedCountriesBinding
     override fun onCreateView(

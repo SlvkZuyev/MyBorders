@@ -3,10 +3,13 @@ package com.overtimedevs.bordersproject.presentation.main_activity.fragments.set
 import androidx.lifecycle.ViewModel
 import com.overtimedevs.bordersproject.data.repository.UserRepository
 import com.overtimedevs.bordersproject.domain.model.UserSettings
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class SettingsViewModel(val repository: UserRepository) : ViewModel() {
+@HiltViewModel
+class SettingsViewModel @Inject constructor (val repository: UserRepository) : ViewModel() {
     val savedUserSettings = repository.getUserSettings()
     val newUserSettings = UserSettings()
     init{

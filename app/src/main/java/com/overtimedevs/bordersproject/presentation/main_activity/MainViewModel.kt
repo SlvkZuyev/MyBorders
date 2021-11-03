@@ -1,27 +1,31 @@
 package com.overtimedevs.bordersproject.presentation.main_activity
 
-import android.content.pm.PackageInstaller
 import android.util.Log
 import androidx.lifecycle.*
-import com.overtimedevs.bordersproject.data.data_source.local.model.CountriesStatistic
+import com.overtimedevs.bordersproject.domain.model.CountriesStatistic
 import com.overtimedevs.bordersproject.data.repository.CountryRepository
 import com.overtimedevs.bordersproject.data.repository.SessionRepository
 import com.overtimedevs.bordersproject.domain.model.SessionInfo
 import com.overtimedevs.bordersproject.extensions.plusAssign
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val countryRepository: CountryRepository,
-    private val sessionRepository: SessionRepository
+    private val sessionRepository: SessionRepository,
 ) : ViewModel() {
+
     private val _showedStatistic: MutableLiveData<CountriesStatistic> = MutableLiveData(
         CountriesStatistic(1, 2, 3)
     )
     val showedStatistic: LiveData<CountriesStatistic> = _showedStatistic
-
+    private val TAG = "MainViewModel"
     private val _message: MutableLiveData<String> = MutableLiveData("")
     val message: LiveData<String> = _message
 
@@ -71,14 +75,18 @@ class MainViewModel(
                 object : DisposableObserver<CountriesStatistic>() {
 
                     override fun onError(e: Throwable) {
-                        Log.d("ViewModel", "onError: ${e.message}")
+                        Log.d(TAG, "onError: ${e.message}")
                     }
 
                     override fun onComplete() {
-                        Log.d("ViewModel", "onComplete: ")
+                        Log.d(TAG, "onComplete: ")
                     }
 
                     override fun onNext(t: CountriesStatistic) {
+                        Log.d(
+                            TAG,
+                            "onNext: new Statistic: restr: ${t.restrictions} open: ${t.open} cls: ${t.closed}"
+                        )
                         allCountriesStatistic = t
                         if (currentPageNum == 1) {
                             _showedStatistic.value = allCountriesStatistic

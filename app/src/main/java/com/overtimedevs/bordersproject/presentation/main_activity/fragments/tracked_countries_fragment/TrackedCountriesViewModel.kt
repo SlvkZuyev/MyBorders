@@ -12,13 +12,16 @@ import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.extensions.plusAssign
 import com.overtimedevs.bordersproject.extensions.toCountryCard
 import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class TrackedCountriesViewModel(
+@HiltViewModel
+class TrackedCountriesViewModel @Inject constructor(
     private val countryRepository: CountryRepository,
     private val userRepository: UserRepository,
 ) : ViewModel() {

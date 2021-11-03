@@ -24,14 +24,19 @@ import com.overtimedevs.bordersproject.presentation.main_activity.adapters.Count
 import com.overtimedevs.bordersproject.presentation.main_activity.fragments.settings_fragment.SettingsDialogue
 import com.overtimedevs.bordersproject.R
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import com.overtimedevs.bordersproject.notifications.MyAlarmManager
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     var viewPager: ViewPager2? = null
     lateinit var binding: ActivityMainBinding
     var searchView: SearchView? = null
 
+    private val viewModel by viewModels<MainViewModel>()
 
+    /*
     private val viewModel: MainViewModel by lazy {
         val app = application as CountryApp
         val viewModelProviderFactory =
@@ -44,6 +49,8 @@ class MainActivity : AppCompatActivity() {
             viewModelProviderFactory
         )[MainViewModel::class.java]
     }
+
+     */
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

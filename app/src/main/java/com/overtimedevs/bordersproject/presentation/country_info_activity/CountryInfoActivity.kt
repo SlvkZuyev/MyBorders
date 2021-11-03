@@ -2,18 +2,18 @@ package com.overtimedevs.bordersproject.presentation.country_info_activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.overtimedevs.bordersproject.CountryApp
 import com.overtimedevs.bordersproject.R
 import com.overtimedevs.bordersproject.databinding.ActivityCountryInfoBinding
 import com.overtimedevs.bordersproject.presentation.main_activity.MainViewModel
-import com.overtimedevs.bordersproject.presentation.main_activity.MainViewModelProviderFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
-
+@AndroidEntryPoint
 class CountryInfoActivity : AppCompatActivity() {
-
+/*
     private val viewModel: CountryInfoViewModel by lazy {
         val app = application as CountryApp
         val viewModelProviderFactory =
@@ -27,7 +27,10 @@ class CountryInfoActivity : AppCompatActivity() {
         )[CountryInfoViewModel::class.java]
     }
 
+ */
 
+
+    private val viewModel by viewModels<CountryInfoViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

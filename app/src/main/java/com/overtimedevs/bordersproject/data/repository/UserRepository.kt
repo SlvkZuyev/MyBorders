@@ -4,8 +4,12 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.overtimedevs.bordersproject.domain.model.UserSettings
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserRepository(context: Context) {
+
+@Singleton
+class UserRepository (context: Context) {
     private val preferences: SharedPreferences = context.getSharedPreferences("user_settings", MODE_PRIVATE)
 
     fun getUserSettings() : UserSettings{

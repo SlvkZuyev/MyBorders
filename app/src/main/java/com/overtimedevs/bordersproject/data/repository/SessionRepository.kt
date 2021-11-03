@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.overtimedevs.bordersproject.domain.model.SessionInfo
 import com.overtimedevs.bordersproject.domain.model.UserSettings
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SessionRepository(context: Context) {
+@Singleton
+class SessionRepository (context: Context) {
     private val preferences: SharedPreferences = context.getSharedPreferences("session_info",
         Context.MODE_PRIVATE
     )

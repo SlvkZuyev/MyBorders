@@ -1,4 +1,4 @@
-package com.overtimedevs.bordersproject.data.data_source.local.model
+package com.overtimedevs.bordersproject.domain.model
 
 class CountriesStatistic(
     val restrictions: Int,

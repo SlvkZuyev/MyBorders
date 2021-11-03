@@ -27,6 +27,7 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import android.graphics.BitmapFactory
+import com.overtimedevs.bordersproject.domain.model.SessionInfo
 import com.overtimedevs.bordersproject.presentation.main_activity.MainActivity
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -37,18 +38,25 @@ class NotificationReceiver : BroadcastReceiver() {
     var changedCountries = emptyList<Country>()
 
     lateinit var countryRepository: CountryRepository
+
     private val compositeDisposable = CompositeDisposable()
     lateinit var context: Context
     private val notificationId = 1212
 
     override fun onReceive(context: Context?, p1: Intent?) {
-        this.context = context!!
-
-        Log.d("APPLICATION", "received!!!!")
-        Toast.makeText(context, "received!!!!", Toast.LENGTH_LONG).show()
-        initRepository(context!!)
-
-        loadTrackedCountries()
+//        this.context = context!!
+//
+//        Log.d("APPLICATION", "received!!!!")
+//        Toast.makeText(context, "received!!!!", Toast.LENGTH_LONG).show()
+//        //initRepository(context!!)
+//
+//        var sessionRepository = SessionRepository(context)
+//
+//        var loadedCountriesCode = sessionRepository.getSessionInfo().loadedCountriesOriginCode
+//
+//        if(loadedCountriesCode != SessionInfo.defaultLoadedCountriesOrigin){
+//            loadTrackedCountries()
+//        }
     }
 
     fun initRepository(context: Context){
@@ -69,13 +77,15 @@ class NotificationReceiver : BroadcastReceiver() {
         val countryDao = countryDatabase.countryDao
         val countyApi = retrofit.create(CountryApi::class.java)
         val sessionRepository = SessionRepository(context)
-
+/*
         countryRepository = CountryRepository(
             countryApi = countyApi,
             countryDao = countryDao,
             netManager = NetManager(context),
             sessionRepository = sessionRepository
         )
+
+ */
     }
 
     fun loadTrackedCountries(){

@@ -3,31 +3,30 @@ package com.overtimedevs.bordersproject.data.repository
 import android.annotation.SuppressLint
 import com.overtimedevs.bordersproject.data.data_source.local.CountryDao
 import com.overtimedevs.bordersproject.data.data_source.local.CountryLocalDataSource
-import com.overtimedevs.bordersproject.data.data_source.local.model.CountriesStatistic
+import com.overtimedevs.bordersproject.domain.model.CountriesStatistic
 import com.overtimedevs.bordersproject.data.data_source.remote.CountryRemoteDataSource
 import com.overtimedevs.bordersproject.data.data_source.remote.CountryApi
 import com.overtimedevs.bordersproject.data.util.NetManager
 import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.domain.model.SessionInfo
+import dagger.Provides
 import io.reactivex.Observable
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class CountryRepository(
+@Singleton
+class CountryRepository (
     private val netManager: NetManager,
-    countryDao: CountryDao,
-    countryApi: CountryApi,
-    private val sessionRepository: SessionRepository
+    private val sessionRepository: SessionRepository,
+    private val localDataSource: CountryLocalDataSource,
+    private val remoteDataSource: CountryRemoteDataSource
 ) {
-    private val localDataSource = CountryLocalDataSource(countryDao)
-    private val remoteDataSource = CountryRemoteDataSource(countryApi)
 
     @SuppressLint("CheckResult")
     fun getAllCountries(
         originCountryCode: String = sessionRepository.getSessionInfo().loadedCountriesOriginCode,
         loadFromRemote: Boolean = false
     ): Observable<List<Country>> {
-
-
         if (netManager.isConnected() && loadFromRemote) {
             return remoteDataSource.getCountries(originCountryCode).doOnNext {
                 localDataSource.saveCountries(it)

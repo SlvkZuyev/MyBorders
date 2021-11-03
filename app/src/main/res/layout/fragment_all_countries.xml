@@ -39,11 +39,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
-                android:fontFamily="@font/helvetica_medium"
+                android:fontFamily="@font/helvetica_neue_cur_heavy"
                 android:text="Please chose origin country in settings"
-                android:textColor="#FFACAC"
+
+                android:textColor="#B8D8CB"
                 android:textSize="50sp"
                 android:textStyle="bold"
+                android:lineSpacingExtra="4sp"
+
                 android:visibility="visible"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
