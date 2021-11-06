@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.overtimedevs.bordersproject.presentation.main_activity.fragments.all_countries_fragment.AllCountriesViewModel" />
+            type="com.overtimedevs.bordersproject.presentation.screens.all_countries.AllCountriesViewModel" />
     </data>
 
     <FrameLayout
@@ -42,8 +42,9 @@
                 android:fontFamily="@font/helvetica_neue_cur_heavy"
                 android:text="Please chose origin country in settings"
 
-                android:textColor="#B8D8CB"
-                android:textSize="50sp"
+                android:textColor="#D1D1D1"
+                android:textSize="34sp"
+
                 android:textStyle="bold"
                 android:lineSpacingExtra="4sp"
 

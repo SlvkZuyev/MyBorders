@@ -16,19 +16,25 @@ class UserRepository (context: Context) {
         val originCountry = preferences.getString(ORIGIN_COUNTRY, UserSettings.defaultOriginCountry) ?:
             UserSettings.defaultOriginCountry
         val isVaccinated = preferences.getBoolean(IS_VACCINATED, UserSettings.defaultVaccinationStatus)
+        val isNotificationsEnabled = preferences.getBoolean(NOTIFICATION_STATUS, UserSettings.defaultNotificationStatus)
 
-        return UserSettings(originCountry, isVaccinated)
+        return UserSettings(
+            originCountry = originCountry,
+            isVaccinated = isVaccinated,
+            isNotificationsEnabled = isNotificationsEnabled)
     }
 
     fun saveUserSettings(userSettings: UserSettings){
         with(preferences.edit()){
             putString(ORIGIN_COUNTRY, userSettings.originCountry)
             putBoolean(IS_VACCINATED, userSettings.isVaccinated)
+            putBoolean(NOTIFICATION_STATUS, userSettings.isNotificationsEnabled)
         }.apply()
     }
 
     companion object {
         private const val ORIGIN_COUNTRY = "origin_country"
         private const val IS_VACCINATED = "is_vaccinated"
+        private const val NOTIFICATION_STATUS = "is_notifications_enabled"
     }
 }

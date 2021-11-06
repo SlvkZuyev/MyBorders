@@ -17,38 +17,36 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:orientation="vertical"
+                android:layout_height="500dp"
                 android:background="#F9FAFF"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:context=".presentation.main_activity.fragments.settings_fragment.SettingsDialogue">
+                tools:context=".presentation.screens.settings_dialogue.SettingsDialogue">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/helvetica_bold"
                     android:text="Settings"
-                    android:textSize="24dp"
                     android:textColor="#777"
-                    android:layout_marginTop="32dp"
-                    android:fontFamily="@font/helvetica_bold"
-                    android:textStyle="bold"
-                    android:layout_marginHorizontal="16dp">
-                </androidx.appcompat.widget.AppCompatTextView>
+                    android:textSize="24dp"
+                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatTextView>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Choose your origin country"
-                    android:textSize="16dp"
-                    android:textColor="@color/black"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="32dp"
                     android:fontFamily="@font/helvetica_bold"
-                    android:textStyle="bold"
-                    android:layout_marginHorizontal="16dp">
-                </androidx.appcompat.widget.AppCompatTextView>
+                    android:text="Choose your origin country"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatTextView>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/menu"
@@ -74,54 +72,104 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Choose your vaccination status"
-                    android:textSize="16dp"
-                    android:textColor="@color/black"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="32dp"
                     android:fontFamily="@font/helvetica_bold"
-                    android:textStyle="bold"
-                    android:layout_marginHorizontal="16dp">
-                </androidx.appcompat.widget.AppCompatTextView>
+                    android:text="Choose your vaccination status"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
 
 
                 <com.google.android.material.button.MaterialButtonToggleGroup
                     android:id="@+id/vaccinationStatusButtons"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
-                    app:singleSelection="true"
-                    android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/vaccinated"
+                    app:singleSelection="true">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/appCompatTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica_bold"
+                        android:text="Choose your vaccination status"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/vaccinated"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="I am vaccinated" />
+
+                    <Button
+                        android:id="@+id/not_vaccinated"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="I am not vaccinated" />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="I am vaccinated"
-                    style="?attr/materialButtonOutlinedStyle"
-                    />
-                <Button
-                    android:id="@+id/not_vaccinated"
-                    android:layout_width="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:text="Notifications"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/notificationStatusButtons"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="I am not vaccinated"
-                    style="?attr/materialButtonOutlinedStyle"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    app:singleSelection="true">
+
+                    <Button
+                        android:id="@+id/notifications_enabled"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Enabled" />
+
+                    <Button
+                        android:id="@+id/notifications_disabled"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Disabled" />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_submit"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:backgroundTint="@color/white"
-                    android:layout_marginTop="32dp"
                     android:layout_width="240dp"
-                    app:strokeWidth="2dp"
-                    app:strokeColor="@color/black"
-                    android:textColor="@color/black"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/helvetica_regular"
-                    android:layout_gravity="center_horizontal"
-                    app:cornerRadius="30dp"
                     android:layout_height="58dp"
-                    android:text="Submit" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="32dp"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30dp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2dp" />
 
 
             </LinearLayout>

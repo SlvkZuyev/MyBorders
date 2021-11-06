@@ -1,12 +1,11 @@
 package com.overtimedevs.bordersproject.data.data_source.local
 
 import androidx.room.*
-import com.overtimedevs.bordersproject.data.data_source.local.model.TrackedCountry
+import com.overtimedevs.bordersproject.data.model.TrackedCountry
 
 import com.overtimedevs.bordersproject.domain.model.Country
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
 
 @Dao
 interface CountryDao {

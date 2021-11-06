@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.overtimedevs.bordersproject.presentation.main_activity.fragments.tracked_countries_fragment.TrackedCountriesViewModel" />
+            type="com.overtimedevs.bordersproject.presentation.screens.tracked_countries.TrackedCountriesViewModel" />
     </data>
 
     <FrameLayout
@@ -43,10 +43,10 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/helvetica_neue_cur_heavy"
                 android:lineSpacingExtra="4sp"
-                android:text="You haven`t any counties to track"
+                android:text="You have no tracked countries"
                 android:textAlignment="center"
-                android:textColor="#B8D8CB"
-                android:textSize="50sp"
+                android:textColor="#D1D1D1"
+                android:textSize="34sp"
                 android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"

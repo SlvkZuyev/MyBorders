@@ -6,7 +6,7 @@
     <data>
         <variable
             name="countryCard"
-            type="com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel" />
+            type="com.overtimedevs.bordersproject.presentation.model.CountryCardModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,7 +123,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/guideline2"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@drawable/starr_unchecked" />
+                    tools:srcCompat="@drawable/star_unchecked" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,11 @@
 package com.overtimedevs.bordersproject.presentation.adapters
 
-import android.util.Log
 import androidx.databinding.BindingAdapter
 
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.overtimedevs.bordersproject.R
-import com.overtimedevs.bordersproject.presentation.main_activity.adapters.CountriesRVAdapter
-import com.overtimedevs.bordersproject.presentation.main_activity.model.CountryCardItemViewModel
+import com.overtimedevs.bordersproject.presentation.model.CountryCardModel
 
 
 @BindingAdapter("app:srcCompat")
@@ -18,7 +16,7 @@ fun setImageResource(imageView: ImageView, resource: Int?) {
 }
 
 @BindingAdapter("app:items")
-fun setItems(recyclerView: RecyclerView, items: List<CountryCardItemViewModel>){
+fun setItems(recyclerView: RecyclerView, items: List<CountryCardModel>){
  if(recyclerView.adapter is CountriesRVAdapter){
         (recyclerView.adapter as CountriesRVAdapter).setNewList(items)
     }
@@ -27,9 +25,9 @@ fun setItems(recyclerView: RecyclerView, items: List<CountryCardItemViewModel>){
 @BindingAdapter("app:isTracked")
 fun setTrackStatusIcon(imageView: ImageView, isTracked: Boolean){
     if(isTracked){
-        imageView.setImageResource(R.drawable.starr_checked)
+        imageView.setImageResource(R.drawable.star_checked)
     } else {
-        imageView.setImageResource(R.drawable.starr_unchecked)
+        imageView.setImageResource(R.drawable.star_unchecked)
     }
 }
 

@@ -27,8 +27,10 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import android.graphics.BitmapFactory
+import com.overtimedevs.bordersproject.data.data_source.local.CountryLocalDataSource
+import com.overtimedevs.bordersproject.data.data_source.remote.CountryRemoteDataSource
 import com.overtimedevs.bordersproject.domain.model.SessionInfo
-import com.overtimedevs.bordersproject.presentation.main_activity.MainActivity
+import com.overtimedevs.bordersproject.presentation.screens.main_activity.MainActivity
 import retrofit2.converter.gson.GsonConverterFactory
 
 
@@ -44,22 +46,20 @@ class NotificationReceiver : BroadcastReceiver() {
     private val notificationId = 1212
 
     override fun onReceive(context: Context?, p1: Intent?) {
-//        this.context = context!!
-//
-//        Log.d("APPLICATION", "received!!!!")
-//        Toast.makeText(context, "received!!!!", Toast.LENGTH_LONG).show()
-//        //initRepository(context!!)
-//
-//        var sessionRepository = SessionRepository(context)
-//
-//        var loadedCountriesCode = sessionRepository.getSessionInfo().loadedCountriesOriginCode
-//
-//        if(loadedCountriesCode != SessionInfo.defaultLoadedCountriesOrigin){
-//            loadTrackedCountries()
-//        }
+        this.context = context!!
+
+        initRepository(context)
+
+        val sessionRepository = SessionRepository(context)
+
+        val loadedCountriesCode = sessionRepository.getSessionInfo().loadedCountriesOriginCode
+
+        if(loadedCountriesCode != SessionInfo.defaultLoadedCountriesOrigin){
+            loadTrackedCountries()
+        }
     }
 
-    fun initRepository(context: Context){
+    private fun initRepository(context: Context){
         val countryDatabase = Room.databaseBuilder(
             context,
             CountryDatabase::class.java,
@@ -77,18 +77,19 @@ class NotificationReceiver : BroadcastReceiver() {
         val countryDao = countryDatabase.countryDao
         val countyApi = retrofit.create(CountryApi::class.java)
         val sessionRepository = SessionRepository(context)
-/*
+        val countryLocalDataSource = CountryLocalDataSource(countryDao)
+        val countryRemoteDataSource = CountryRemoteDataSource(countyApi)
+
         countryRepository = CountryRepository(
-            countryApi = countyApi,
-            countryDao = countryDao,
+            localDataSource = countryLocalDataSource,
+            remoteDataSource = countryRemoteDataSource,
             netManager = NetManager(context),
             sessionRepository = sessionRepository
         )
 
- */
     }
 
-    fun loadTrackedCountries(){
+    private fun loadTrackedCountries(){
         compositeDisposable += countryRepository.getTrackedCountries()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
@@ -159,7 +160,7 @@ class NotificationReceiver : BroadcastReceiver() {
 
         val largeIcon = BitmapFactory.decodeResource(context.resources, R.drawable.icon_push)
         var builder = NotificationCompat.Builder(context, "channel_id")
-            .setSmallIcon(R.drawable.starr_checked)
+            .setSmallIcon(R.drawable.star_checked)
             .setLargeIcon(largeIcon)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pandingIntent)

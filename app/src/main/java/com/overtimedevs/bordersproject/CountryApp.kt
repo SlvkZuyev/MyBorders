@@ -1,22 +1,7 @@
 package com.overtimedevs.bordersproject
 
 import android.app.Application
-import androidx.room.Room
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import com.overtimedevs.bordersproject.data.data_source.local.CountryDatabase
 import dagger.hilt.android.HiltAndroidApp
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import android.app.AlarmManager
-
-import android.app.PendingIntent
-import android.content.Context
-
-import com.overtimedevs.bordersproject.notifications.NotificationReceiver
-
-import android.content.Intent
-import android.util.Log
-import java.util.*
 
 @HiltAndroidApp
 class CountryApp : Application() {

@@ -1,17 +1,13 @@
 package com.overtimedevs.bordersproject.data.repository
 
 import android.annotation.SuppressLint
-import com.overtimedevs.bordersproject.data.data_source.local.CountryDao
 import com.overtimedevs.bordersproject.data.data_source.local.CountryLocalDataSource
 import com.overtimedevs.bordersproject.domain.model.CountriesStatistic
 import com.overtimedevs.bordersproject.data.data_source.remote.CountryRemoteDataSource
-import com.overtimedevs.bordersproject.data.data_source.remote.CountryApi
 import com.overtimedevs.bordersproject.data.util.NetManager
 import com.overtimedevs.bordersproject.domain.model.Country
 import com.overtimedevs.bordersproject.domain.model.SessionInfo
-import dagger.Provides
 import io.reactivex.Observable
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton

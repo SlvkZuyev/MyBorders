@@ -1,7 +1,7 @@
 package com.overtimedevs.bordersproject.data.data_source.local
 
 import com.overtimedevs.bordersproject.domain.model.CountriesStatistic
-import com.overtimedevs.bordersproject.data.data_source.local.model.TrackedCountry
+import com.overtimedevs.bordersproject.data.model.TrackedCountry
 import com.overtimedevs.bordersproject.domain.model.Country
 import io.reactivex.Observable
 import kotlinx.coroutines.GlobalScope
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class CountryLocalDataSource @Inject constructor(private val countryDao: CountryDao) {
+class CountryLocalDataSource @Inject constructor(val countryDao: CountryDao) {
 
     fun getAllCountries(): Observable<List<Country>> {
         return countryDao.getAllCountries()

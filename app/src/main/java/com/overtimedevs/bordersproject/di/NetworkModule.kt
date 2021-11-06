@@ -20,7 +20,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit = Retrofit.Builder()
+    fun providesRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl("https://www.kayak.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -29,7 +29,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCountryApi(retrofit: Retrofit): CountryApi = retrofit.create(CountryApi::class.java)
+    fun providesCountryApi(retrofit: Retrofit): CountryApi =
+        retrofit.create(CountryApi::class.java)
 
     @Provides
     @Singleton

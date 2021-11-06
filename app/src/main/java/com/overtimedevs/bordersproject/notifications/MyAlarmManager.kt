@@ -5,6 +5,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+
+
 //Todo refactor notifications code
 class MyAlarmManager {
     companion object {

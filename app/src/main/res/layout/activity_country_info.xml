@@ -6,13 +6,13 @@
     <data>
     <variable
         name="viewModel"
-        type="com.overtimedevs.bordersproject.presentation.country_info_activity.CountryInfoViewModel" />
+        type="com.overtimedevs.bordersproject.presentation.screens.country_info.CountryInfoViewModel" />
     </data>
     <!-- TODO: make it looks more beautiful!, probably make everything bald-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.country_info_activity.CountryInfoActivity">
+        tools:context=".presentation.screens.country_info.CountryInfoActivity">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
