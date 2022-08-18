@@ -34,8 +34,8 @@
                     android:fontFamily="@font/helvetica_bold"
                     android:text="Settings"
                     android:textColor="#777"
-                    android:textSize="24dp"
-                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatTextView>
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -45,8 +45,8 @@
                     android:fontFamily="@font/helvetica_bold"
                     android:text="Choose your origin country"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
-                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatTextView>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/menu"
@@ -77,45 +77,36 @@
                     android:fontFamily="@font/helvetica_bold"
                     android:text="Choose your vaccination status"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
 
 
                 <com.google.android.material.button.MaterialButtonToggleGroup
                     android:id="@+id/vaccinationStatusButtons"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
                     app:singleSelection="true">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/appCompatTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="32dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/helvetica_bold"
-                        android:text="Choose your vaccination status"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-
                     <Button
                         android:id="@+id/vaccinated"
                         style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="I am vaccinated" />
+                        android:layout_weight="1"
+                        android:text="Vaccinated" />
 
                     <Button
                         android:id="@+id/not_vaccinated"
                         style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="I am not vaccinated" />
+                        android:layout_weight="1"
+                        android:text="Not vaccinated" />
+
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -126,7 +117,7 @@
                     android:fontFamily="@font/helvetica_bold"
                     android:text="Notifications"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButtonToggleGroup
@@ -170,7 +161,6 @@
                     app:cornerRadius="30dp"
                     app:strokeColor="@color/black"
                     app:strokeWidth="2dp" />
-
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
