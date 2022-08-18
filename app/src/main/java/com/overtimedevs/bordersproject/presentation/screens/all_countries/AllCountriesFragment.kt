@@ -31,7 +31,6 @@ class AllCountriesFragment(): Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_all_countries, container, false
         )
-
         return binding.root
     }
 

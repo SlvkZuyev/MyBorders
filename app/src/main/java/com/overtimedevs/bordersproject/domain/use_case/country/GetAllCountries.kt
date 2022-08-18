@@ -11,18 +11,22 @@ import javax.inject.Singleton
 class GetAllCountries @Inject constructor(private val countryRepository: CountryRepository) {
     val copyTrackStatuses = CopyTrackStatuses()
 
-    operator fun invoke(countryCode: String, forceLoadFromRemote: Boolean): Observable<List<Country>> {
-        return Observable
-            .zip(countryRepository.getAllCountries(
-                countryCode,
-                forceLoadFromRemote
-            ), countryRepository.getTrackedCountries(),
-                {allCountries, trackedCountries ->
-                    copyTrackStatuses(
-                        from = trackedCountries,
-                        to = allCountries)
-                }
+    operator fun invoke(
+        countryCode: String,
+        forceLoadFromRemote: Boolean
+    ): Observable<List<Country>> {
+        return Observable.zip(
+            countryRepository.getAllCountries(
+                originCountryCode = countryCode,
+                loadFromRemote = forceLoadFromRemote
+            ),
+            countryRepository.getTrackedCountries()
+        ) { allCountries, trackedCountries ->
+            copyTrackStatuses(
+                from = trackedCountries,
+                to = allCountries
             )
+        }
     }
 
 }

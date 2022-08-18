@@ -48,7 +48,6 @@ class CountryRepository (
         }
     }
 
-    //todo: Починить это ебаное говнище
     fun getTrackedCountries(): Observable<List<Country>> {
         return localDataSource.getTrackedCountries()
     }

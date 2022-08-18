@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun onSettingsClick() {
+    private fun onSettingsClick() = try {
         val settingsDialogue = SettingsDialogue()
         settingsDialogue.onNewSettingsApplied =
             { oldSettings, newSettings -> onSettingsApplied(oldSettings, newSettings) }
@@ -104,6 +104,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.toolbar.collapseActionView()
         quitSearchMode()
+    } catch (e: Exception) {
+        e.printStackTrace()
     }
 
     private fun onSettingsApplied(oldSettings: UserSettings, newSettings: UserSettings) {
@@ -113,104 +115,102 @@ class MainActivity : AppCompatActivity() {
             newSettings = newSettings,
             oldSettings = oldSettings
         )
-        if(message != ""){
+        if (message != "") {
             showSnackBar(message)
         }
     }
 
 
-
-
-private fun showSnackBar(text: String) {
-    Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG)
-        .setAction("Action", null).show();
-}
-
-private fun onSearchIconClick(searchView: MenuItem) {
-
-}
-
-override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menuInflater.inflate(R.menu.main_toolbar_menu, menu)
-
-    Log.d("SlvkLog", "Menu created ")
-    val searchItem: MenuItem? = menu.findItem(R.id.app_bar_search)
-    val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-    searchView = searchItem?.actionView as SearchView
-    searchItem.setOnMenuItemClickListener {
-        onSearchIconClick(it)
-        true
+    private fun showSnackBar(text: String) {
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show();
     }
 
-    searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-    searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(query: String?): Boolean {
-            hideKeyBoard()
-            return true
+    private fun onSearchIconClick(searchView: MenuItem) {
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_toolbar_menu, menu)
+
+        Log.d("SlvkLog", "Menu created ")
+        val searchItem: MenuItem? = menu.findItem(R.id.app_bar_search)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = searchItem?.actionView as SearchView
+        searchItem.setOnMenuItemClickListener {
+            onSearchIconClick(it)
+            true
         }
 
-        override fun onQueryTextChange(newText: String?): Boolean {
-            changeQuery(newText!!)
-            return true
-        }
-    })
+        searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                hideKeyBoard()
+                return true
+            }
 
-    searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-        override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
-            binding.appBarLayout.setExpanded(false)
-            setToolbarExpandEnabled(false)
-            return true
-        }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                changeQuery(newText!!)
+                return true
+            }
+        })
 
-        override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
-            setToolbarExpandEnabled(true)
-            return true
-        }
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                binding.appBarLayout.setExpanded(false)
+                setToolbarExpandEnabled(false)
+                return true
+            }
 
-    })
-    return true
-}
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                setToolbarExpandEnabled(true)
+                return true
+            }
 
-private fun hideKeyBoard() {
-    val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
-}
+        })
+        return true
+    }
 
-fun changeQuery(query: String) {
-    (viewPager?.adapter as CountriesViewPagerAdapter).notifyFilterChanged(query)
-}
+    private fun hideKeyBoard() {
+        val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
 
-private fun onPageChanged(position: Int) {
-    quitSearchMode()
-    viewModel.onPageChanged(position)
-}
+    fun changeQuery(query: String) {
+        (viewPager?.adapter as CountriesViewPagerAdapter).notifyFilterChanged(query)
+    }
 
-private fun quitSearchMode() {
-    setToolbarExpandEnabled(true)
-    hideKeyBoard()
+    private fun onPageChanged(position: Int) {
+        quitSearchMode()
+        viewModel.onPageChanged(position)
+    }
 
-    searchView?.isIconified = true
-    binding.toolbar.collapseActionView()
-}
+    private fun quitSearchMode() {
+        setToolbarExpandEnabled(true)
+        hideKeyBoard()
 
-private fun setToolbarExpandEnabled(value: Boolean) {
-    val adapter = (viewPager?.adapter as CountriesViewPagerAdapter)
-    adapter.setNested(value)
-}
+        searchView?.isIconified = true
+        binding.toolbar.collapseActionView()
+    }
 
-
-private fun onFirstOpen() {
-    Handler(Looper.getMainLooper()).postDelayed({
-        binding.tab.getTabAt(1)?.select()
-    }, 500)
-    Handler(Looper.getMainLooper()).postDelayed({
-        binding.btnSettings.performClick()
-    }, 1000)
-}
+    private fun setToolbarExpandEnabled(value: Boolean) {
+        val adapter = (viewPager?.adapter as CountriesViewPagerAdapter)
+        adapter.setNested(value)
+    }
 
 
-private fun initAlarmManager() {
-    MyAlarmManager.setup(this)
-}
+    private fun onFirstOpen() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.tab.getTabAt(1)?.select()
+        }, 500)
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.btnSettings.performClick()
+        }, 1000)
+    }
+
+
+    private fun initAlarmManager() {
+        MyAlarmManager.setup(this)
+    }
 
 }
